@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fr.miage.xfe.facades;
+package fr.miage.xfe.repositories;
 
-import fr.miage.xfe.entities.FicheDePoste;
+import fr.miage.xfe.entities.Collaborateur;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author eyeseater
  */
 @Stateless
-public class FicheDePosteFacade extends AbstractFacade<FicheDePoste> implements FicheDePosteFacadeLocal {
+public class CollaborateurFacade extends AbstractFacade<Collaborateur> implements CollaborateurFacadeLocal {
 
     @PersistenceContext(unitName = "fr.miage.xfe_mirage-ejb_ejb_1.0-SNAPSHOTPU")
     private EntityManager em;
@@ -25,8 +25,8 @@ public class FicheDePosteFacade extends AbstractFacade<FicheDePoste> implements 
         return em;
     }
 
-    public FicheDePosteFacade() {
-        super(FicheDePoste.class);
+    public CollaborateurFacade() {
+        super(Collaborateur.class);
     }
     
 }

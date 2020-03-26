@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fr.miage.xfe.facades;
+package fr.miage.xfe.repositories;
 
 import fr.miage.xfe.entities.Collaborateur;
 import java.util.List;
