@@ -3,9 +3,6 @@
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
-    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[1080, 720]"/>
-    </Property>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -118,9 +115,11 @@
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="this.jLabel2.setIcon(new ImageIcon(&quot;/fr/miage/toulouse/mirage/lourd/views/logo.PNG&quot;));"/>
-          </AuxValues>
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="2" name="C:\Users\calme\Documents\NetBeansProjects\projetMIRAGE\mirage-lourd\Image\logo.PNG"/>
+            </Property>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

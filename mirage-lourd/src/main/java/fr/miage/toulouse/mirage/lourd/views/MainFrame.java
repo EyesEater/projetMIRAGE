@@ -45,7 +45,6 @@ public class MainFrame extends javax.swing.JFrame {
         PanelWork = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1080, 720));
 
         PanelMenu.setBackground(new java.awt.Color(204, 204, 204));
         PanelMenu.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -77,6 +76,8 @@ public class MainFrame extends javax.swing.JFrame {
                 ButtonCandidaturesActionPerformed(evt);
             }
         });
+
+        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\calme\\Documents\\NetBeansProjects\\projetMIRAGE\\mirage-lourd\\Image\\logo.PNG")); // NOI18N
 
         javax.swing.GroupLayout PanelMenuLayout = new javax.swing.GroupLayout(PanelMenu);
         PanelMenu.setLayout(PanelMenuLayout);
@@ -112,8 +113,6 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(ButtonQuitter)
                 .addGap(19, 19, 19))
         );
-
-        this.jLabel2.setIcon(new ImageIcon("/fr/miage/toulouse/mirage/lourd/views/logo.PNG"));
 
         getContentPane().add(PanelMenu, java.awt.BorderLayout.WEST);
 
