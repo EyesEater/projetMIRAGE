@@ -5,6 +5,7 @@
  */
 package fr.miage.xfe.repositories;
 
+import fr.miage.xfe.entities.Demandecompetence;
 import fr.miage.xfe.entities.Fichedeposte;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -32,5 +33,11 @@ public class FichedeposteFacade extends AbstractFacade<Fichedeposte> implements 
     
     public List<Fichedeposte> listerOffres() {
         return em.createQuery("SELECT fdp FROM FICHEDEPOSTE fdp WHERE fdp.archivee = FALSE").getResultList();
+    }
+    
+    public void creerFDPoste(Fichedeposte fichedeposte) {
+        em.getTransaction().begin();
+        em.persist(fichedeposte);
+        em.getTransaction().commit();
     }
 }

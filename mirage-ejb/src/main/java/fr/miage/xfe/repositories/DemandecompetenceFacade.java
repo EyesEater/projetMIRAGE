@@ -48,7 +48,7 @@ public class DemandecompetenceFacade extends AbstractFacade<Demandecompetence> i
         em.getTransaction().commit();
     }
     
-    public List<Demandecompetence> listerDemandeACombler() {
+    public List<Demandecompetence> listerCompACombler() {
         return em.createQuery("SELECT d FROM DEMANDECOMPETENCE d WHERE d.feuxVertCodir = false").getResultList();
     }
 }

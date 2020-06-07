@@ -76,6 +76,12 @@ public class Fichedeposte implements Serializable {
         this.presentationentreprisefdp = presentationentreprisefdp;
         this.presentationpostefdp = presentationpostefdp;
     }
+    
+    public Fichedeposte(String presentationEntreprise, String PresentationPoste, Competence competence) {
+        this.presentationentreprisefdp = presentationEntreprise;
+        this.presentationpostefdp = presentationpostefdp;
+        this.competencesfdp = competence;
+    }
 
     public Integer getIdfpd() {
         return idfpd;

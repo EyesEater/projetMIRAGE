@@ -74,6 +74,11 @@ public class Collaborateur implements Serializable {
         this.idcollaborateur = idcollaborateur;
         this.role = role;
     }
+    
+    public Collaborateur(Candidat candidat, String role) {
+        this.candidat = candidat;
+        this.role = role;
+    }
 
     public Integer getIdcollaborateur() {
         return idcollaborateur;
