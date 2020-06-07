@@ -6,95 +6,124 @@
 package fr.miage.xfe.entities;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Collection;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author eyeseater
+ * @author sagab
  */
 @Entity
+@Table(name = "COMPETENCE")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Competence.findAll", query = "SELECT c FROM Competence c")
+    , @NamedQuery(name = "Competence.findByIdcompetence", query = "SELECT c FROM Competence c WHERE c.idcompetence = :idcompetence")
+    , @NamedQuery(name = "Competence.findByNomcompetence", query = "SELECT c FROM Competence c WHERE c.nomcompetence = :nomcompetence")})
 public class Competence implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idCompetence;
-
-    @ManyToMany(mappedBy = "competencesCandidat")
-    private List<Candidat> candidats;
-
-    @ManyToOne
-    private Candidat candidat;
-    
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "IDCOMPETENCE")
+    private Integer idcompetence;
+    @Basic(optional = false)
     @NotNull
-    private String nomCompetence;
-    
-    @ManyToMany(mappedBy = "competencesFDP")
-    private List<FicheDePoste> ficheDePostes;
+    @Size(min = 1, max = 255)
+    @Column(name = "NOMCOMPETENCE")
+    private String nomcompetence;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "competence1")
+    private Collection<Demandecompetence> demandecompetenceCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "competencesfdp")
+    private Collection<Fichedeposte> fichedeposteCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "competences")
+    private Collection<Candidat> candidatCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "competences")
+    private Collection<Equipe> equipeCollection;
 
     public Competence() {
     }
 
-    public Long getId() {
-        return idCompetence;
+    public Competence(Integer idcompetence) {
+        this.idcompetence = idcompetence;
     }
 
-    public void setId(Long id) {
-        this.idCompetence = id;
+    public Competence(Integer idcompetence, String nomcompetence) {
+        this.idcompetence = idcompetence;
+        this.nomcompetence = nomcompetence;
     }
 
-    public List<Candidat> getCandidats() {
-        return candidats;
+    public Integer getIdcompetence() {
+        return idcompetence;
     }
 
-    public void setCandidats(List<Candidat> candidats) {
-        this.candidats = candidats;
+    public void setIdcompetence(Integer idcompetence) {
+        this.idcompetence = idcompetence;
     }
 
-    public Candidat getCandidat() {
-        return candidat;
+    public String getNomcompetence() {
+        return nomcompetence;
     }
 
-    public void setCandidat(Candidat candidat) {
-        this.candidat = candidat;
+    public void setNomcompetence(String nomcompetence) {
+        this.nomcompetence = nomcompetence;
     }
 
-    public Long getIdCompetence() {
-        return idCompetence;
+    @XmlTransient
+    public Collection<Demandecompetence> getDemandecompetenceCollection() {
+        return demandecompetenceCollection;
     }
 
-    public void setIdCompetence(Long idCompetence) {
-        this.idCompetence = idCompetence;
+    public void setDemandecompetenceCollection(Collection<Demandecompetence> demandecompetenceCollection) {
+        this.demandecompetenceCollection = demandecompetenceCollection;
     }
 
-    public String getNomCompetence() {
-        return nomCompetence;
+    @XmlTransient
+    public Collection<Fichedeposte> getFichedeposteCollection() {
+        return fichedeposteCollection;
     }
 
-    public void setNomCompetence(String nomCompetence) {
-        this.nomCompetence = nomCompetence;
+    public void setFichedeposteCollection(Collection<Fichedeposte> fichedeposteCollection) {
+        this.fichedeposteCollection = fichedeposteCollection;
     }
 
-    public List<FicheDePoste> getFicheDePostes() {
-        return ficheDePostes;
+    @XmlTransient
+    public Collection<Candidat> getCandidatCollection() {
+        return candidatCollection;
     }
 
-    public void setFicheDePostes(List<FicheDePoste> ficheDePostes) {
-        this.ficheDePostes = ficheDePostes;
+    public void setCandidatCollection(Collection<Candidat> candidatCollection) {
+        this.candidatCollection = candidatCollection;
+    }
+
+    @XmlTransient
+    public Collection<Equipe> getEquipeCollection() {
+        return equipeCollection;
+    }
+
+    public void setEquipeCollection(Collection<Equipe> equipeCollection) {
+        this.equipeCollection = equipeCollection;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idCompetence != null ? idCompetence.hashCode() : 0);
+        hash += (idcompetence != null ? idcompetence.hashCode() : 0);
         return hash;
     }
 
@@ -105,7 +134,7 @@ public class Competence implements Serializable {
             return false;
         }
         Competence other = (Competence) object;
-        if ((this.idCompetence == null && other.idCompetence != null) || (this.idCompetence != null && !this.idCompetence.equals(other.idCompetence))) {
+        if ((this.idcompetence == null && other.idcompetence != null) || (this.idcompetence != null && !this.idcompetence.equals(other.idcompetence))) {
             return false;
         }
         return true;
@@ -113,7 +142,7 @@ public class Competence implements Serializable {
 
     @Override
     public String toString() {
-        return "fr.miage.xfe.entities.Competence[ id=" + idCompetence + " ]";
+        return "fr.miage.xfe.entities.Competence[ idcompetence=" + idcompetence + " ]";
     }
     
 }

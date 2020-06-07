@@ -5,14 +5,16 @@
  */
 package fr.miage.xfe.repositories;
 
+import fr.miage.xfe.entities.Competence;
 import fr.miage.xfe.entities.Equipe;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author eyeseater
+ * @author sagab
  */
 @Stateless
 public class EquipeFacade extends AbstractFacade<Equipe> implements EquipeFacadeLocal {
@@ -29,4 +31,13 @@ public class EquipeFacade extends AbstractFacade<Equipe> implements EquipeFacade
         super(Equipe.class);
     }
     
+    public void creerEquipe(Equipe equipe) {
+        em.getTransaction().begin();
+        em.persist(equipe);
+        em.getTransaction().commit();
+    }
+    
+    public List<Competence> listerCompEquipe(Equipe equipe) {
+        return em.createQuery("SELECT c FROM Equipe e, Competence c WHERE e.idequipe = c.equipeCollection").getResultList();
+    }
 }

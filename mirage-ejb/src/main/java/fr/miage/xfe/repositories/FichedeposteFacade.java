@@ -5,17 +5,18 @@
  */
 package fr.miage.xfe.repositories;
 
-import fr.miage.xfe.entities.FicheDePoste;
+import fr.miage.xfe.entities.Fichedeposte;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author eyeseater
+ * @author sagab
  */
 @Stateless
-public class FicheDePosteFacade extends AbstractFacade<FicheDePoste> implements FicheDePosteFacadeLocal {
+public class FichedeposteFacade extends AbstractFacade<Fichedeposte> implements FichedeposteFacadeLocal {
 
     @PersistenceContext(unitName = "fr.miage.xfe_mirage-ejb_ejb_1.0-SNAPSHOTPU")
     private EntityManager em;
@@ -25,8 +26,11 @@ public class FicheDePosteFacade extends AbstractFacade<FicheDePoste> implements 
         return em;
     }
 
-    public FicheDePosteFacade() {
-        super(FicheDePoste.class);
+    public FichedeposteFacade() {
+        super(Fichedeposte.class);
     }
     
+    public List<Fichedeposte> listerOffres() {
+        return em.createQuery("SELECT fdp FROM FICHEDEPOSTE fdp WHERE fdp.archivee = FALSE").getResultList();
+    }
 }

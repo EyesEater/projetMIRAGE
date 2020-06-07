@@ -5,7 +5,7 @@
  */
 package fr.miage.xfe.repositories;
 
-import fr.miage.xfe.entities.Competence;
+import fr.miage.xfe.entities.Fichedeposte;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -14,19 +14,19 @@ import javax.ejb.Local;
  * @author sagab
  */
 @Local
-public interface CompetenceFacadeLocal {
+public interface FichedeposteFacadeLocal {
 
-    void create(Competence competence);
+    void create(Fichedeposte fichedeposte);
 
-    void edit(Competence competence);
+    void edit(Fichedeposte fichedeposte);
 
-    void remove(Competence competence);
+    void remove(Fichedeposte fichedeposte);
 
-    Competence find(Object id);
+    Fichedeposte find(Object id);
 
-    List<Competence> findAll();
+    List<Fichedeposte> findAll();
 
-    List<Competence> findRange(int[] range);
+    List<Fichedeposte> findRange(int[] range);
 
     int count();
     
