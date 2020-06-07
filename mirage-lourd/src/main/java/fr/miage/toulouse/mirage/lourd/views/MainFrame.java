@@ -147,7 +147,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void ButtonFDPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonFDPActionPerformed
         this.remove(this.dynamicPanel);
-        this.dynamicPanel = this.add(new PanelFDPCreator());
+        this.dynamicPanel = this.add(new PanelCreationFDP());
         this.revalidate();
         this.repaint();
     }//GEN-LAST:event_ButtonFDPActionPerformed

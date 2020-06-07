@@ -35,15 +35,18 @@ public class PanelCandidat extends javax.swing.JPanel {
         String[] entetes = {"ID","Prénom","Nom","Compétences"};
         JTable tabCandidat = new JTable(candidat, entetes);
         TableFunctions.formatTable(tabCandidat);
+        tabCandidat.setEnabled(false);
         JButton buttonConcretiser = new JButton("Concrétiser");
         if(!(boolean)candidat[0][candidat[0].length-1]){
             buttonConcretiser.setEnabled(false);
         }
+        JButton buttonSupprimer = new JButton("Supprimer");
         JPanel panTab = new JPanel(new BorderLayout());
         panTab.add(tabCandidat.getTableHeader(),BorderLayout.NORTH);
         panTab.add(tabCandidat,BorderLayout.CENTER);
         this.add(panTab);
         this.add(buttonConcretiser);
+        this.add(buttonSupprimer);
     }
     
     /**

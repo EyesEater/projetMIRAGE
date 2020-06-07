@@ -76,11 +76,11 @@ public class PanelCandidatures extends javax.swing.JPanel {
         PanelView.setLayout(PanelViewLayout);
         PanelViewLayout.setHorizontalGroup(
             PanelViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 848, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         PanelViewLayout.setVerticalGroup(
             PanelViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 606, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         add(PanelView, java.awt.BorderLayout.CENTER);
