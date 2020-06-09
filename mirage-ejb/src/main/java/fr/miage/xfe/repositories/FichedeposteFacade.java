@@ -5,8 +5,8 @@
  */
 package fr.miage.xfe.repositories;
 
-import fr.miage.xfe.entities.Competence;
-import fr.miage.xfe.entities.Equipe;
+import fr.miage.xfe.entities.Demandecompetence;
+import fr.miage.xfe.entities.Fichedeposte;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -17,7 +17,7 @@ import javax.persistence.PersistenceContext;
  * @author sagab
  */
 @Stateless
-public class EquipeFacade extends AbstractFacade<Equipe> implements EquipeFacadeLocal {
+public class FichedeposteFacade extends AbstractFacade<Fichedeposte> implements FichedeposteFacadeLocal {
 
     @PersistenceContext(unitName = "fr.miage.xfe_mirage-ejb_ejb_1.0-SNAPSHOTPU")
     private EntityManager em;
@@ -27,17 +27,17 @@ public class EquipeFacade extends AbstractFacade<Equipe> implements EquipeFacade
         return em;
     }
 
-    public EquipeFacade() {
-        super(Equipe.class);
+    public FichedeposteFacade() {
+        super(Fichedeposte.class);
     }
     
-    public void creerEquipe(Equipe equipe) {
+    public List<Fichedeposte> listerOffres() {
+        return em.createQuery("SELECT fdp FROM FICHEDEPOSTE fdp WHERE fdp.archivee = FALSE").getResultList();
+    }
+    
+    public void creerFDPoste(Fichedeposte fichedeposte) {
         em.getTransaction().begin();
-        em.persist(equipe);
+        em.persist(fichedeposte);
         em.getTransaction().commit();
-    }
-    
-    public List<Competence> listerCompEquipe(Equipe equipe) {
-        return em.createQuery("SELECT c FROM Equipe e, Competence c WHERE e.idequipe = c.equipeCollection").getResultList();
     }
 }

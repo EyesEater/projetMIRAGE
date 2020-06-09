@@ -12,7 +12,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author eyeseater
+ * @author sagab
  */
 @Stateless
 public class CompetenceFacade extends AbstractFacade<Competence> implements CompetenceFacadeLocal {
@@ -28,5 +28,4 @@ public class CompetenceFacade extends AbstractFacade<Competence> implements Comp
     public CompetenceFacade() {
         super(Competence.class);
     }
-    
 }

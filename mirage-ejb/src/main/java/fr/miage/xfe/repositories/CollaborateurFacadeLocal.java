@@ -11,7 +11,7 @@ import javax.ejb.Local;
 
 /**
  *
- * @author eyeseater
+ * @author sagab
  */
 @Local
 public interface CollaborateurFacadeLocal {

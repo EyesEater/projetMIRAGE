@@ -6,13 +6,14 @@
 package fr.miage.xfe.repositories;
 
 import fr.miage.xfe.entities.Candidat;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author eyeseater
+ * @author sagab
  */
 @Stateless
 public class CandidatFacade extends AbstractFacade<Candidat> implements CandidatFacadeLocal {
@@ -29,4 +30,7 @@ public class CandidatFacade extends AbstractFacade<Candidat> implements Candidat
         super(Candidat.class);
     }
     
+    public List<Candidat> listerCandidatARecruter() {
+        return em.createQuery("SELECT c FROM Candidat c WHERE c.FEUXVERTCODIR = TRUE").getResultList();
+    }
 }
