@@ -5,6 +5,9 @@
  */
 package fr.miage.xfe.services;
 
+import fr.miage.xfe.exposition.CandidatExport;
+import fr.miage.xfe.exposition.CandidatureExport;
+import fr.miage.xfe.exposition.FicheDePosteExport;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Remote;
@@ -16,15 +19,15 @@ import javax.ejb.Remote;
 @Remote
 public interface GestionRecrutementRemote {
     
-    public List listerOffres();
+    public List<FicheDePosteExport> listerOffres();
 
-    public List listerCandidatures();
+    public List<CandidatureExport> listerCandidatures();
 
-    public void candidater(Object candidat, Object fDPoste, Date dateCandidature, String email, String tel, String cv, String lettreMotivation);
+    public void candidater(CandidatExport candidat, FicheDePosteExport fDPoste, Date dateCandidature, String email, String tel, String cv, String lettreMotivation);
 
-    public void recruter(Object candidature, boolean feuxVertCodir);
+    public void recruter(CandidatureExport candidature, boolean feuxVertCodir);
 
-    public void concretiserEmbauche(Object candidat, String role);
+    public void concretiserEmbauche(CandidatExport candidat, String role);
 
-    public void supprimerCandidature(Object candidature);
+    public void supprimerCandidature(CandidatureExport candidature);
 }

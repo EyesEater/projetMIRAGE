@@ -9,6 +9,7 @@
     <modules>
         <module>mirage-ear</module>
         <module>mirage-web</module>
+        <module>mirage-shared</module>
         <module>mirage-ejb</module>
         <module>mirage-lourd</module>
     </modules>

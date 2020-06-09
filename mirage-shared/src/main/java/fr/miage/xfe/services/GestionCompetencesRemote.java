@@ -5,6 +5,10 @@
  */
 package fr.miage.xfe.services;
 
+import fr.miage.xfe.exposition.CollaborateurExport;
+import fr.miage.xfe.exposition.CompetenceExport;
+import fr.miage.xfe.exposition.DemandeCompetenceExport;
+import fr.miage.xfe.exposition.EquipeExport;
 import java.util.List;
 import javax.ejb.Remote;
 
@@ -15,15 +19,15 @@ import javax.ejb.Remote;
 @Remote
 public interface GestionCompetencesRemote {
    
-    public List listerCompCollaborateurs(Object collaborateur);
+    public List<CompetenceExport> listerCompCollaborateurs(CollaborateurExport collaborateur);
 
-    public List listerCompACombler();
+    public List<DemandeCompetenceExport> listerCompACombler();
 
-    public List listerCompEquipe(Object equipe);
+    public List<CompetenceExport> listerCompEquipe(EquipeExport equipe);
 
-    public void gererDemandeComp(Object demandeCompetence);
+    public void gererDemandeComp(DemandeCompetenceExport demandeCompetence);
 
-    public void convertirCompEnFDPoste(Object demandeCompetence, String presentationEntreprise, String presentationPoste);
+    public void convertirCompEnFDPoste(DemandeCompetenceExport demandeCompetence, String presentationEntreprise, String presentationPoste);
 
-    public void creerDemandeComp(Object competence, Object equipe);
+    public void creerDemandeComp(CompetenceExport competence, EquipeExport equipe);
 }

@@ -55,8 +55,9 @@ public class CandidatureFacade extends AbstractFacade<Candidature> implements Ca
     }
     
     public void supprimerCandidature(Candidature candidature) {
+        Candidature c = em.find(Candidature.class, candidature);
         em.getTransaction().begin();
-        em.remove(candidature);
+        em.remove(c);
         em.getTransaction().commit();
     }
     

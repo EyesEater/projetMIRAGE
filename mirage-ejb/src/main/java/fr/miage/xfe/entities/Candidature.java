@@ -79,13 +79,6 @@ public class Candidature implements Serializable {
         this.candidaturePK = candidaturePK;
     }
 
-    public Candidature(CandidaturePK candidaturePK, Date datecandidature, String email, String telephone) {
-        this.candidaturePK = candidaturePK;
-        this.datecandidature = datecandidature;
-        this.email = email;
-        this.telephone = telephone;
-    }
-
     public Candidature(int candidat, int fichedeposte) {
         this.candidaturePK = new CandidaturePK(candidat, fichedeposte);
     }
@@ -99,6 +92,15 @@ public class Candidature implements Serializable {
         this.lettremotivation = lettreMotivation;
         this.candidat1 = candidat;
         this.fichedeposte1 = fichedeposte;
+    }
+
+    public Candidature(CandidaturePK candidaturePK, Date datecandidature, String email, String telephone, String cv, String lettremotivation) {
+        this.candidaturePK = candidaturePK;
+        this.datecandidature = datecandidature;
+        this.email = email;
+        this.telephone = telephone;
+        this.cv = cv;
+        this.lettremotivation = lettremotivation;
     }
 
     public CandidaturePK getCandidaturePK() {
