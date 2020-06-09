@@ -6,13 +6,15 @@
 package fr.miage.xfe.repositories;
 
 import fr.miage.xfe.entities.Collaborateur;
+import fr.miage.xfe.entities.Competence;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author eyeseater
+ * @author sagab
  */
 @Stateless
 public class CollaborateurFacade extends AbstractFacade<Collaborateur> implements CollaborateurFacadeLocal {
@@ -29,4 +31,13 @@ public class CollaborateurFacade extends AbstractFacade<Collaborateur> implement
         super(Collaborateur.class);
     }
     
+    public void concretiserEmbauche(Collaborateur collaborateur) {
+        em.getTransaction().begin();
+        em.persist(collaborateur);
+        em.getTransaction().commit();
+    }
+    
+    public List<Competence> listerCompCollaborateur(Collaborateur collaborateur) {
+        return em.createQuery("SELECT c FROM Collaborateur c1, Competence c WHERE c1.idcollaborateur = c.candidatCollection").getResultList();
+    }
 }

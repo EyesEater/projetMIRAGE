@@ -10,5 +10,6 @@
         <module>mirage-ear</module>
         <module>mirage-web</module>
         <module>mirage-ejb</module>
+        <module>mirage-lourd</module>
     </modules>
 </project>
