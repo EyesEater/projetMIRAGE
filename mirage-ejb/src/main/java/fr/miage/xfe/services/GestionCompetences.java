@@ -26,42 +26,45 @@ import javax.ejb.Stateless;
 public class GestionCompetences implements GestionCompetencesRemote {
 
     @Override
-    public List<Competence> listerCompCollaborateurs(Collaborateur collaborateur) {
+    public List listerCompCollaborateurs(Object collaborateur) {
         CollaborateurFacade collaborateurFacade = new CollaborateurFacade();
-        return collaborateurFacade.listerCompCollaborateur(collaborateur);
+        return collaborateurFacade.listerCompCollaborateur((Collaborateur) collaborateur);
     }
 
     @Override
-    public List<Demandecompetence> listerCompACombler() {
+    public List listerCompACombler() {
         DemandecompetenceFacade demandecompetenceFacade = new DemandecompetenceFacade();
         return demandecompetenceFacade.listerCompACombler();
     }
 
     @Override
-    public List<Competence> listerCompEquipe(Equipe equipe) {
+    public List listerCompEquipe(Object equipe) {
         EquipeFacade equipeFacade = new EquipeFacade();
-        return equipeFacade.listerCompEquipe(equipe);
+        return equipeFacade.listerCompEquipe((Equipe) equipe);
     }
 
     @Override
-    public void gererDemandeComp(Demandecompetence demandeCompetence) {
+    public void gererDemandeComp(Object demandeCompetence) {
         DemandecompetenceFacade demandecompetenceFacade = new DemandecompetenceFacade();
-        demandecompetenceFacade.gererDemandeComp(demandeCompetence);
+        demandecompetenceFacade.gererDemandeComp((Demandecompetence) demandeCompetence);
     }
 
     @Override
-    public void convertirCompEnFDPoste(Demandecompetence demandeCompetence, String presentationEntreprise, String presentationPoste) {
+    public void convertirCompEnFDPoste(Object demandeCompetence, String presentationEntreprise, String presentationPoste) {
         FichedeposteFacade fichedeposteFacade = new FichedeposteFacade();
-        Fichedeposte fichedeposte = new Fichedeposte(presentationEntreprise, presentationPoste, demandeCompetence.getCompetence1());
+        Demandecompetence demande = (Demandecompetence) demandeCompetence;
+        Fichedeposte fichedeposte = new Fichedeposte(presentationEntreprise, presentationPoste, demande.getCompetence1());
         fichedeposteFacade.creerFDPoste(fichedeposte);
         
         DemandecompetenceFacade demandecompetenceFacade = new DemandecompetenceFacade();
-        demandecompetenceFacade.supprimerDemandeComp(demandeCompetence);
+        demandecompetenceFacade.supprimerDemandeComp(demande);
     }
 
     @Override
-    public void creerDemandeComp(Competence competence, Equipe equipe) {
-        DemandecompetencePK demandecompetencePK = new DemandecompetencePK(competence.getIdcompetence(), equipe.getIdequipe());
+    public void creerDemandeComp(Object competence, Object equipe) {
+        Competence comp = (Competence) competence;
+        Equipe eq = (Equipe) equipe;
+        DemandecompetencePK demandecompetencePK = new DemandecompetencePK(comp.getIdcompetence(), eq.getIdequipe());
         Demandecompetence demandecompetence = new Demandecompetence(demandecompetencePK);
         DemandecompetenceFacade demandecompetenceFacade = new DemandecompetenceFacade();
         demandecompetenceFacade.creerDemandeComp(demandecompetence);

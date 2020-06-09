@@ -36,27 +36,27 @@ public class GestionRecrutement implements GestionRecrutementRemote {
     }
 
     @Override
-    public void candidater(Candidat candidat, Fichedeposte fDPoste, Date dateCandidature, String email, String tel, String cv, String lettreMotivation) {
-        Candidature candidature = new Candidature(candidat, fDPoste, dateCandidature, email, tel, cv, lettreMotivation);
+    public void candidater(Object candidat, Object fDPoste, Date dateCandidature, String email, String tel, String cv, String lettreMotivation) {
+        Candidature candidature = new Candidature((Candidat) candidat, (Fichedeposte) fDPoste, dateCandidature, email, tel, cv, lettreMotivation);
         CandidatureFacade candidatureFacade = new CandidatureFacade();
         candidatureFacade.candidater(candidature);
     }
 
     @Override
-    public void recruter(Candidature candidature, boolean feuxVertCodir) {
+    public void recruter(Object candidature, boolean feuxVertCodir) {
         CandidatureFacade candidatureFacade = new CandidatureFacade();
-        candidatureFacade.recruter(candidature, feuxVertCodir);
+        candidatureFacade.recruter((Candidature) candidature, feuxVertCodir);
     }
 
     @Override
-    public void concretiserEmbauche(Candidat candidat, String role) {
+    public void concretiserEmbauche(Object candidat, String role) {
         CollaborateurFacade collaborateurFacade = new CollaborateurFacade();
-        collaborateurFacade.concretiserEmbauche(new Collaborateur(candidat, role));
+        collaborateurFacade.concretiserEmbauche(new Collaborateur((Candidat) candidat, role));
     }
 
     @Override
-    public void supprimerCandidature(Candidature candidature) {
+    public void supprimerCandidature(Object candidature) {
         CandidatureFacade candidatureFacade = new CandidatureFacade();
-        candidatureFacade.supprimerCandidature(candidature);
+        candidatureFacade.supprimerCandidature((Candidature) candidature);
     }
 }
