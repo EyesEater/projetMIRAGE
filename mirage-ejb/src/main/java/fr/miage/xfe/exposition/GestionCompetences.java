@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fr.miage.xfe.services;
+package fr.miage.xfe.exposition;
 
 import fr.miage.xfe.entities.Collaborateur;
 import fr.miage.xfe.entities.Competence;
@@ -15,6 +15,8 @@ import fr.miage.xfe.repositories.CollaborateurFacade;
 import fr.miage.xfe.repositories.DemandecompetenceFacade;
 import fr.miage.xfe.repositories.EquipeFacade;
 import fr.miage.xfe.repositories.FichedeposteFacade;
+import fr.miage.xfe.services.GestionCompetencesRemote;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 
@@ -26,33 +28,48 @@ import javax.ejb.Stateless;
 public class GestionCompetences implements GestionCompetencesRemote {
 
     @Override
-    public List listerCompCollaborateurs(Object collaborateur) {
+    public List<CompetenceExport> listerCompCollaborateurs(CollaborateurExport collaborateur) {
         CollaborateurFacade collaborateurFacade = new CollaborateurFacade();
-        return collaborateurFacade.listerCompCollaborateur((Collaborateur) collaborateur);
+        Collaborateur collabo = new Collaborateur(collaborateur.getId(), collaborateur.getRole());
+        List<CompetenceExport> competences = new ArrayList<>();
+        for(Competence c : collaborateurFacade.listerCompCollaborateur(collabo)) {
+            competences.add(new CompetenceExport(c.getIdcompetence(), c.getNomcompetence()));
+        }
+        return competences;
     }
 
     @Override
-    public List listerCompACombler() {
+    public List<DemandeCompetenceExport> listerCompACombler() {
         DemandecompetenceFacade demandecompetenceFacade = new DemandecompetenceFacade();
-        return demandecompetenceFacade.listerCompACombler();
+        List<DemandeCompetenceExport> demandes = new ArrayList<>();
+        for(Demandecompetence demande : demandecompetenceFacade.listerCompACombler()) {
+            demandes.add(new DemandeCompetenceExport(new CompetenceExport(demande.getCompetence1().getIdcompetence(), demande.getCompetence1().getNomcompetence()), new EquipeExport(demande.getEquipe1().getIdequipe(), demande.getEquipe1().getNomequipe()), true));
+        }
+        return demandes;
     }
 
     @Override
-    public List listerCompEquipe(Object equipe) {
+    public List<CompetenceExport> listerCompEquipe(EquipeExport equipe) {
         EquipeFacade equipeFacade = new EquipeFacade();
-        return equipeFacade.listerCompEquipe((Equipe) equipe);
+        Equipe e = new Equipe(equipe.getId(), equipe.getNom());
+        List<CompetenceExport> competences = new ArrayList<>();
+        for(Competence c : equipeFacade.listerCompEquipe(e)) {
+            competences.add(new CompetenceExport(c.getIdcompetence(), c.getNomcompetence()));
+        }
+        return competences;
     }
 
     @Override
-    public void gererDemandeComp(Object demandeCompetence) {
+    public void gererDemandeComp(DemandeCompetenceExport demandeCompetence) {
         DemandecompetenceFacade demandecompetenceFacade = new DemandecompetenceFacade();
-        demandecompetenceFacade.gererDemandeComp((Demandecompetence) demandeCompetence);
+        Demandecompetence demande = new Demandecompetence(demandeCompetence.getCompetence().getId(), demandeCompetence.getEquipe().getId());
+        demandecompetenceFacade.gererDemandeComp(demande);
     }
 
     @Override
-    public void convertirCompEnFDPoste(Object demandeCompetence, String presentationEntreprise, String presentationPoste) {
+    public void convertirCompEnFDPoste(DemandeCompetenceExport demandeCompetence, String presentationEntreprise, String presentationPoste) {
         FichedeposteFacade fichedeposteFacade = new FichedeposteFacade();
-        Demandecompetence demande = (Demandecompetence) demandeCompetence;
+        Demandecompetence demande = new Demandecompetence(demandeCompetence.getCompetence().getId(), demandeCompetence.getEquipe().getId());
         Fichedeposte fichedeposte = new Fichedeposte(presentationEntreprise, presentationPoste, demande.getCompetence1());
         fichedeposteFacade.creerFDPoste(fichedeposte);
         
@@ -61,9 +78,9 @@ public class GestionCompetences implements GestionCompetencesRemote {
     }
 
     @Override
-    public void creerDemandeComp(Object competence, Object equipe) {
-        Competence comp = (Competence) competence;
-        Equipe eq = (Equipe) equipe;
+    public void creerDemandeComp(CompetenceExport competence, EquipeExport equipe) {
+        Competence comp = new Competence(competence.getId(), competence.getNomCompetence());
+        Equipe eq = new Equipe(equipe.getId(), equipe.getNom());
         DemandecompetencePK demandecompetencePK = new DemandecompetencePK(comp.getIdcompetence(), eq.getIdequipe());
         Demandecompetence demandecompetence = new Demandecompetence(demandecompetencePK);
         DemandecompetenceFacade demandecompetenceFacade = new DemandecompetenceFacade();

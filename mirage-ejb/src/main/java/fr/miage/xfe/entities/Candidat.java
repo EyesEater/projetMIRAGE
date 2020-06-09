@@ -73,8 +73,9 @@ public class Candidat implements Serializable {
         this.idcandidat = idcandidat;
     }
 
-    public Candidat(Integer idcandidat, String prenomcandidat, Boolean feuxvertcodir) {
+    public Candidat(Integer idcandidat, String nomCandidat, String prenomcandidat, Boolean feuxvertcodir) {
         this.idcandidat = idcandidat;
+        this.nomcandidat = nomCandidat;
         this.prenomcandidat = prenomcandidat;
         this.feuxvertcodir = feuxvertcodir;
     }

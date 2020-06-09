@@ -83,6 +83,14 @@ public class Fichedeposte implements Serializable {
         this.competencesfdp = competence;
     }
 
+    public Fichedeposte(Integer idfpd, String presentationentreprisefdp, String presentationpostefdp, Boolean archivee, Competence competencesfdp) {
+        this.idfpd = idfpd;
+        this.presentationentreprisefdp = presentationentreprisefdp;
+        this.presentationpostefdp = presentationpostefdp;
+        this.archivee = archivee;
+        this.competencesfdp = competencesfdp;
+    }
+
     public Integer getIdfpd() {
         return idfpd;
     }
