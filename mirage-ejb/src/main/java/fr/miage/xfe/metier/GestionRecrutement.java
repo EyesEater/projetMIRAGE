@@ -7,6 +7,7 @@ package fr.miage.xfe.metier;
 
 import fr.miage.xfe.entities.Candidat;
 import fr.miage.xfe.entities.Candidature;
+import fr.miage.xfe.entities.CandidaturePK;
 import fr.miage.xfe.entities.Collaborateur;
 import fr.miage.xfe.entities.Fichedeposte;
 import fr.miage.xfe.repositories.CandidatFacade;
@@ -37,27 +38,33 @@ public class GestionRecrutement implements GestionRecrutementLocal {
     }
 
     @Override
-    public void candidater(Candidat candidat, Fichedeposte fDPoste, Date dateCandidature, String email, String tel, String cv, String lettreMotivation) {
-        Candidature candidature = new Candidature(candidat, fDPoste, dateCandidature, email, tel, cv, lettreMotivation);
+    public void candidater(Long idCandidat, Long idFDPoste, Date dateCandidature, String email, String tel, String cv, String lettreMotivation) {
         CandidatureFacade candidatureFacade = new CandidatureFacade();
+        CandidatFacade candidatFacade = new CandidatFacade();
+        FichedeposteFacade facade = new FichedeposteFacade();
+        Candidature candidature = new Candidature(candidatFacade.find(idCandidat), facade.find(idFDPoste), dateCandidature, email, tel, cv, lettreMotivation);
         candidatureFacade.candidater(candidature);
     }
 
     @Override
-    public void recruter(Candidature candidature, boolean feuxVertCodir) {
+    public void recruter(Long idCandidature, boolean feuxVertCodir) {
         CandidatureFacade candidatureFacade = new CandidatureFacade();
+        Candidature candidature = candidatureFacade.find(idCandidature);
         candidatureFacade.recruter(candidature, feuxVertCodir);
     }
 
     @Override
-    public void concretiserEmbauche(Candidat candidat, String role) {
+    public void concretiserEmbauche(Long idCandidat, String role) {
         CollaborateurFacade collaborateurFacade = new CollaborateurFacade();
+        CandidatFacade candidatFacade = new CandidatFacade();
+        Candidat candidat = candidatFacade.find(idCandidat);
         collaborateurFacade.concretiserEmbauche(new Collaborateur(candidat, role));
     }
 
     @Override
-    public void supprimerCandidature(Candidature candidature) {
+    public void supprimerCandidature(Long idCandidat, Long idFDposte) {
         CandidatureFacade candidatureFacade = new CandidatureFacade();
+        Candidature candidature = candidatureFacade.find(new CandidaturePK(idCandidat.intValue(), idFDposte.intValue()));
         candidatureFacade.supprimerCandidature(candidature);
     }
 

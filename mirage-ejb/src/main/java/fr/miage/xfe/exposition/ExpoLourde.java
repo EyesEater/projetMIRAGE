@@ -51,8 +51,7 @@ public class ExpoLourde implements ExpoLourdeRemote {
 
     @Override
     public void concretiserEmbauche(CandidatExport candidatExport, String role) {
-        Candidat candidat = new Candidat(candidatExport.getId(), candidatExport.getNom(), candidatExport.getPrenom(), candidatExport.isFeuxVertCodir());
-        this.gestionRecrutement.concretiserEmbauche(candidat, role);
+        this.gestionRecrutement.concretiserEmbauche(candidatExport.getId().longValue(), role);
     }
 
     @Override
@@ -79,10 +78,7 @@ public class ExpoLourde implements ExpoLourdeRemote {
 
     @Override
     public void supprimerCandidature(CandidatureExport candidatureExport) {
-        Candidat c = new Candidat(candidatureExport.getCandidat().getId(), candidatureExport.getCandidat().getNom(), candidatureExport.getCandidat().getPrenom(), candidatureExport.getCandidat().isFeuxVertCodir());
-        Fichedeposte f = new Fichedeposte(candidatureExport.getFicheDePoste().getId(), candidatureExport.getFicheDePoste().getPresentationEntreprise(), candidatureExport.getFicheDePoste().getPresentationPoste(), candidatureExport.getFicheDePoste().isArchivee(), new Competence(candidatureExport.getFicheDePoste().getCompetence().getId(), candidatureExport.getFicheDePoste().getCompetence().getNomCompetence()));
-        Candidature candidature = new Candidature(c, f, candidatureExport.getDateCandidature(), candidatureExport.getEmail(), candidatureExport.getTel(), candidatureExport.getCv(), candidatureExport.getLettreMotiv());
-        this.gestionRecrutement.supprimerCandidature(candidature);
+        this.gestionRecrutement.supprimerCandidature(candidatureExport.getCandidat().getId().longValue(), candidatureExport.getFicheDePoste().getId().longValue());
     }
 
     @Override
