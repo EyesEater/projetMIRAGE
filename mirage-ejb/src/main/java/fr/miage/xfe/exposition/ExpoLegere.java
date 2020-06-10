@@ -37,8 +37,8 @@ public class ExpoLegere implements ExpoLegereLocal {
     }
 
     @Override
-    public void candidater(Candidat candidat, Fichedeposte fDPoste, Date dateCandidature, String email, String tel, String cv, String lettreMotivation) {
-        this.gestionRecrutement.candidater(candidat, fDPoste, dateCandidature, email, tel, cv, lettreMotivation);
+    public void candidater(String idCandidat, String idFDPoste, Date dateCandidature, String email, String tel, String cv, String lettreMotivation) {
+        this.gestionRecrutement.candidater(Long.parseLong(idCandidat), Long.parseLong(idFDPoste), dateCandidature, email, tel, cv, lettreMotivation);
     }
 
     @Override
@@ -47,8 +47,8 @@ public class ExpoLegere implements ExpoLegereLocal {
     }
 
     @Override
-    public void recruter(Candidature candidature, boolean feuxVertCodir) {
-        this.gestionRecrutement.recruter(candidature, feuxVertCodir);
+    public void recruter(String idCandidature, boolean feuxVertCodir) {
+        this.gestionRecrutement.recruter(Long.parseLong(idCandidature), feuxVertCodir);
     }
 
     @Override
@@ -57,13 +57,12 @@ public class ExpoLegere implements ExpoLegereLocal {
     }
 
     @Override
-    public void creerDemandeComp(Competence competence, Equipe equipe) {
-        this.gestionCompetences.creerDemandeComp(competence, equipe);
+    public void creerDemandeComp(String idCompetence, String idEquipe) {
+        this.gestionCompetences.creerDemandeComp(Long.parseLong(idCompetence), Long.parseLong(idEquipe));
     }
 
     @Override
-    public List<Competence> listerCompEquipe(Equipe equipe) {
-        return this.gestionCompetences.listerCompEquipe(equipe);
+    public List<Competence> listerCompEquipe(String idEquipe) {
+        return this.gestionCompetences.listerCompEquipe(Long.parseLong(idEquipe));
     }
-
 }

@@ -23,11 +23,11 @@ public interface GestionCompetencesLocal {
 
     public List<Demandecompetence> listerCompACombler();
 
-    public List<Competence> listerCompEquipe(Equipe equipe);
+    public List<Competence> listerCompEquipe(Long idEquipe);
 
     public void gererDemandeComp(Demandecompetence demandeCompetence);
 
     public void convertirCompEnFDPoste(Demandecompetence demandeCompetence, String presentationEntreprise, String presentationPoste);
 
-    public void creerDemandeComp(Competence competence, Equipe equipe);
+    public void creerDemandeComp(Long idCompetence, Long idEquipe);
 }

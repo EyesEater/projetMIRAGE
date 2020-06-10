@@ -24,15 +24,15 @@ public interface ExpoLegereLocal {
     
     public List<Fichedeposte> listerOffres();
     
-    public void candidater(Candidat candidat, Fichedeposte fDPoste, Date dateCandidature, String email, String tel, String cv, String lettreMotivation);
+    public void candidater(String idCandidat, String idFDPoste, Date dateCandidature, String email, String tel, String cv, String lettreMotivation);
     
     public List<Candidature> listerCandidatures();
     
-    public void recruter(Candidature candidature, boolean feuxVertCodir);
+    public void recruter(String idCandidature, boolean feuxVertCodir);
     
     public List<Demandecompetence> listerCompACombler();
     
-    public void creerDemandeComp(Competence competence, Equipe equipe);
+    public void creerDemandeComp(String idCompetence, String idEquipe);
     
-    public List<Competence> listerCompEquipe(Equipe equipe);
+    public List<Competence> listerCompEquipe(String idEquipe);
 }

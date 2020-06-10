@@ -37,8 +37,9 @@ public class GestionCompetences implements GestionCompetencesLocal {
     }
 
     @Override
-    public List<Competence> listerCompEquipe(Equipe equipe) {
+    public List<Competence> listerCompEquipe(Long idEquipe) {
         EquipeFacade equipeFacade = new EquipeFacade();
+        Equipe equipe = equipeFacade.find(idEquipe);
         return equipeFacade.listerCompEquipe(equipe);
     }
 
@@ -59,8 +60,8 @@ public class GestionCompetences implements GestionCompetencesLocal {
     }
 
     @Override
-    public void creerDemandeComp(Competence competence, Equipe equipe) {
-        Demandecompetence demandecompetence = new Demandecompetence(competence.getIdcompetence(), equipe.getIdequipe());
+    public void creerDemandeComp(Long idCompetence, Long idEquipe) {
+        Demandecompetence demandecompetence = new Demandecompetence(idCompetence.intValue(), idEquipe.intValue());
         DemandecompetenceFacade demandecompetenceFacade = new DemandecompetenceFacade();
         demandecompetenceFacade.creerDemandeComp(demandecompetence);
     }
