@@ -5,13 +5,14 @@
  */
 package fr.miage.xfe.mirageshared.utilities;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author sagab
  */
-public class CandidatureExport {
+public class CandidatureExport implements Serializable {
     
     private CandidatExport candidat;
     private FicheDePosteExport ficheDePoste;

@@ -5,11 +5,13 @@
  */
 package fr.miage.xfe.mirageshared.utilities;
 
+import java.io.Serializable;
+
 /**
  *
  * @author sagab
  */
-public class CompetenceExport {
+public class CompetenceExport implements Serializable {
     
     private Integer id;
     
