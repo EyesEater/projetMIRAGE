@@ -51,6 +51,7 @@ public class Demandecompetence implements Serializable {
 
     public Demandecompetence(DemandecompetencePK demandecompetencePK) {
         this.demandecompetencePK = demandecompetencePK;
+        this.feuxvertcodir = false;
     }
 
     public Demandecompetence(DemandecompetencePK demandecompetencePK, Boolean feuxvertcodir) {
@@ -60,6 +61,7 @@ public class Demandecompetence implements Serializable {
 
     public Demandecompetence(int competence, int equipe) {
         this.demandecompetencePK = new DemandecompetencePK(competence, equipe);
+        this.feuxvertcodir = false;
     }
 
     public DemandecompetencePK getDemandecompetencePK() {

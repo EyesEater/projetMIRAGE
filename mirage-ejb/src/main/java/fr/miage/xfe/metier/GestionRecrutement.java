@@ -10,12 +10,13 @@ import fr.miage.xfe.entities.Candidature;
 import fr.miage.xfe.entities.CandidaturePK;
 import fr.miage.xfe.entities.Collaborateur;
 import fr.miage.xfe.entities.Fichedeposte;
-import fr.miage.xfe.repositories.CandidatFacade;
-import fr.miage.xfe.repositories.CandidatureFacade;
-import fr.miage.xfe.repositories.CollaborateurFacade;
-import fr.miage.xfe.repositories.FichedeposteFacade;
+import fr.miage.xfe.repositories.CandidatFacadeLocal;
+import fr.miage.xfe.repositories.CandidatureFacadeLocal;
+import fr.miage.xfe.repositories.CollaborateurFacadeLocal;
+import fr.miage.xfe.repositories.FichedeposteFacadeLocal;
 import java.util.Date;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 /**
@@ -24,53 +25,65 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class GestionRecrutement implements GestionRecrutementLocal {
+
+    @EJB
+    private CollaborateurFacadeLocal collaborateurFacade;
+
+    @EJB
+    private CandidatFacadeLocal candidatFacade;
+
+    @EJB
+    private CandidatureFacadeLocal candidatureFacade;
+
+    @EJB
+    private FichedeposteFacadeLocal fichedeposteFacade;
     
     @Override
     public List<Fichedeposte> listerOffres() {
-        FichedeposteFacade fichedeposteFacade = new FichedeposteFacade();
-        return fichedeposteFacade.listerOffres();
+        return this.fichedeposteFacade.listerOffres();
     }
 
     @Override
     public List<Candidature> listerCandidatures() {
-        CandidatureFacade candidatureFacade = new CandidatureFacade();
-        return candidatureFacade.listerCandidatures();
+        return this.candidatureFacade.listerCandidatures();
     }
 
     @Override
-    public void candidater(Long idCandidat, Long idFDPoste, Date dateCandidature, String email, String tel, String cv, String lettreMotivation) {
-        CandidatureFacade candidatureFacade = new CandidatureFacade();
-        CandidatFacade candidatFacade = new CandidatFacade();
-        FichedeposteFacade facade = new FichedeposteFacade();
-        Candidature candidature = new Candidature(candidatFacade.find(idCandidat), facade.find(idFDPoste), dateCandidature, email, tel, cv, lettreMotivation);
+    public void candidater(Integer idCandidat, Integer idFDPoste, Date dateCandidature, String email, String tel, String cv, String lettreMotivation) {
+        Candidature candidature = new Candidature(candidatFacade.find(idCandidat), fichedeposteFacade.find(idFDPoste), dateCandidature, email, tel, cv, lettreMotivation);
         candidatureFacade.candidater(candidature);
     }
 
     @Override
-    public void recruter(Long idCandidature, boolean feuxVertCodir) {
-        CandidatureFacade candidatureFacade = new CandidatureFacade();
-        Candidature candidature = candidatureFacade.find(idCandidature);
+    public void recruter(Integer idCandidat, Integer idFDPoste, boolean feuxVertCodir) {
+        CandidaturePK candidaturePK = new CandidaturePK(idCandidat, idFDPoste);
+        Candidature candidature = candidatureFacade.find(candidaturePK);
+        if (feuxVertCodir) {
+            Candidat candidat = candidatFacade.find(candidature.getCandidat1().getIdcandidat());
+            candidat.setFeuxvertcodir(feuxVertCodir);
+            candidatFacade.edit(candidat);
+
+            Fichedeposte fichedeposte = fichedeposteFacade.find(candidature.getFichedeposte1().getIdfpd());
+            fichedeposte.setArchivee(feuxVertCodir);
+            fichedeposteFacade.edit(fichedeposte);
+        }
         candidatureFacade.recruter(candidature, feuxVertCodir);
     }
 
     @Override
-    public void concretiserEmbauche(Long idCandidat, String role) {
-        CollaborateurFacade collaborateurFacade = new CollaborateurFacade();
-        CandidatFacade candidatFacade = new CandidatFacade();
+    public void concretiserEmbauche(Integer idCandidat, String role) {
         Candidat candidat = candidatFacade.find(idCandidat);
         collaborateurFacade.concretiserEmbauche(new Collaborateur(candidat, role));
     }
 
     @Override
-    public void supprimerCandidature(Long idCandidat, Long idFDposte) {
-        CandidatureFacade candidatureFacade = new CandidatureFacade();
-        Candidature candidature = candidatureFacade.find(new CandidaturePK(idCandidat.intValue(), idFDposte.intValue()));
+    public void supprimerCandidature(Integer idCandidat, Integer idFDposte) {
+        Candidature candidature = candidatureFacade.find(new CandidaturePK(idCandidat, idFDposte));
         candidatureFacade.supprimerCandidature(candidature);
     }
 
     @Override
     public List<Candidat> listerCandidatsARecruter() {
-        CandidatFacade candidatFacade = new CandidatFacade();
         return candidatFacade.listerCandidatARecruter();
     }
 }

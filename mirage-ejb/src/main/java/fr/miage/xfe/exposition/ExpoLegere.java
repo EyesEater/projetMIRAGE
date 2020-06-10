@@ -5,16 +5,18 @@
  */
 package fr.miage.xfe.exposition;
 
-import fr.miage.xfe.entities.Candidat;
 import fr.miage.xfe.entities.Candidature;
 import fr.miage.xfe.entities.Competence;
 import fr.miage.xfe.entities.Demandecompetence;
-import fr.miage.xfe.entities.Equipe;
 import fr.miage.xfe.entities.Fichedeposte;
 import fr.miage.xfe.metier.GestionCompetencesLocal;
 import fr.miage.xfe.metier.GestionRecrutementLocal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
@@ -37,8 +39,14 @@ public class ExpoLegere implements ExpoLegereLocal {
     }
 
     @Override
-    public void candidater(String idCandidat, String idFDPoste, Date dateCandidature, String email, String tel, String cv, String lettreMotivation) {
-        this.gestionRecrutement.candidater(Long.parseLong(idCandidat), Long.parseLong(idFDPoste), dateCandidature, email, tel, cv, lettreMotivation);
+    public void candidater(String idCandidat, String idFDPoste, String dateCandidature, String email, String tel, String cv, String lettreMotivation) {
+        Date date = new Date();
+        try {
+            date = new SimpleDateFormat("dd/MM/yyyy").parse(dateCandidature);
+        } catch (ParseException ex) {
+            Logger.getLogger(ExpoLegere.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.gestionRecrutement.candidater(Integer.parseInt(idCandidat), Integer.parseInt(idFDPoste), date, email, tel, cv, lettreMotivation);
     }
 
     @Override
@@ -47,8 +55,8 @@ public class ExpoLegere implements ExpoLegereLocal {
     }
 
     @Override
-    public void recruter(String idCandidature, boolean feuxVertCodir) {
-        this.gestionRecrutement.recruter(Long.parseLong(idCandidature), feuxVertCodir);
+    public void recruter(String idCandidat, String idFDPoste, String feuxVertCodir) {
+        this.gestionRecrutement.recruter(Integer.parseInt(idCandidat), Integer.parseInt(idFDPoste), feuxVertCodir.equals("1"));
     }
 
     @Override
@@ -58,11 +66,11 @@ public class ExpoLegere implements ExpoLegereLocal {
 
     @Override
     public void creerDemandeComp(String idCompetence, String idEquipe) {
-        this.gestionCompetences.creerDemandeComp(Long.parseLong(idCompetence), Long.parseLong(idEquipe));
+        this.gestionCompetences.creerDemandeComp(Integer.parseInt(idCompetence), Integer.parseInt(idEquipe));
     }
 
     @Override
     public List<Competence> listerCompEquipe(String idEquipe) {
-        return this.gestionCompetences.listerCompEquipe(Long.parseLong(idEquipe));
+        return this.gestionCompetences.listerCompEquipe(Integer.parseInt(idEquipe));
     }
 }

@@ -5,6 +5,7 @@
  */
 package fr.miage.xfe.repositories;
 
+import fr.miage.xfe.entities.Competence;
 import fr.miage.xfe.entities.Equipe;
 import java.util.List;
 import javax.ejb.Local;
@@ -29,5 +30,7 @@ public interface EquipeFacadeLocal {
     List<Equipe> findRange(int[] range);
 
     int count();
+
+    public List<Competence> listerCompEquipe(Equipe equipe);
     
 }

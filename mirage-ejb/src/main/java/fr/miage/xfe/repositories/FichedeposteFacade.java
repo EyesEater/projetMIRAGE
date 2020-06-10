@@ -5,7 +5,6 @@
  */
 package fr.miage.xfe.repositories;
 
-import fr.miage.xfe.entities.Demandecompetence;
 import fr.miage.xfe.entities.Fichedeposte;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -31,10 +30,12 @@ public class FichedeposteFacade extends AbstractFacade<Fichedeposte> implements 
         super(Fichedeposte.class);
     }
     
+    @Override
     public List<Fichedeposte> listerOffres() {
-        return em.createQuery("SELECT fdp FROM FICHEDEPOSTE fdp WHERE fdp.archivee = FALSE").getResultList();
+        return em.createQuery("SELECT fdp FROM Fichedeposte fdp WHERE fdp.archivee = 0").getResultList();
     }
     
+    @Override
     public void creerFDPoste(Fichedeposte fichedeposte) {
         em.getTransaction().begin();
         em.persist(fichedeposte);

@@ -8,7 +8,6 @@ package fr.miage.xfe.metier;
 import fr.miage.xfe.entities.Collaborateur;
 import fr.miage.xfe.entities.Competence;
 import fr.miage.xfe.entities.Demandecompetence;
-import fr.miage.xfe.entities.Equipe;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -23,11 +22,11 @@ public interface GestionCompetencesLocal {
 
     public List<Demandecompetence> listerCompACombler();
 
-    public List<Competence> listerCompEquipe(Long idEquipe);
+    public List<Competence> listerCompEquipe(Integer idEquipe);
 
     public void gererDemandeComp(Demandecompetence demandeCompetence);
 
     public void convertirCompEnFDPoste(Demandecompetence demandeCompetence, String presentationEntreprise, String presentationPoste);
 
-    public void creerDemandeComp(Long idCompetence, Long idEquipe);
+    public void creerDemandeComp(Integer idCompetence, Integer idEquipe);
 }

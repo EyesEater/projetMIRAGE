@@ -29,5 +29,13 @@ public interface CandidatureFacadeLocal {
     List<Candidature> findRange(int[] range);
 
     int count();
+
+    public List<Candidature> listerCandidatures();
+
+    public void candidater(Candidature candidature);
+
+    public void recruter(Candidature candidature, boolean feuxVertCodir);
+
+    public void supprimerCandidature(Candidature candidature);
     
 }

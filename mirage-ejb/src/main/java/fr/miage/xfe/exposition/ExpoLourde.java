@@ -51,7 +51,7 @@ public class ExpoLourde implements ExpoLourdeRemote {
 
     @Override
     public void concretiserEmbauche(CandidatExport candidatExport, String role) {
-        this.gestionRecrutement.concretiserEmbauche(candidatExport.getId().longValue(), role);
+        this.gestionRecrutement.concretiserEmbauche(candidatExport.getId(), role);
     }
 
     @Override
@@ -78,7 +78,7 @@ public class ExpoLourde implements ExpoLourdeRemote {
 
     @Override
     public void supprimerCandidature(CandidatureExport candidatureExport) {
-        this.gestionRecrutement.supprimerCandidature(candidatureExport.getCandidat().getId().longValue(), candidatureExport.getFicheDePoste().getId().longValue());
+        this.gestionRecrutement.supprimerCandidature(candidatureExport.getCandidat().getId(), candidatureExport.getFicheDePoste().getId());
     }
 
     @Override

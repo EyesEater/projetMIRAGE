@@ -25,11 +25,11 @@ public interface GestionRecrutementLocal {
     
     public List<Candidat> listerCandidatsARecruter();
 
-    public void candidater(Long idCandidat, Long idFDPoste, Date dateCandidature, String email, String tel, String cv, String lettreMotivation);
+    public void candidater(Integer idCandidat, Integer idFDPoste, Date dateCandidature, String email, String tel, String cv, String lettreMotivation);
 
-    public void recruter(Long idCandidature, boolean feuxVertCodir);
+    public void recruter(Integer idCandidat, Integer idFDPoste, boolean feuxVertCodir);
 
-    public void concretiserEmbauche(Long idCandidat, String role);
+    public void concretiserEmbauche(Integer idCandidat, String role);
 
-    public void supprimerCandidature(Long idCandidat, Long idFDPoste);
+    public void supprimerCandidature(Integer idCandidat, Integer idFDPoste);
 }

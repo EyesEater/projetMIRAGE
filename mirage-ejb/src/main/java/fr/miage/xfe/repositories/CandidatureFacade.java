@@ -32,35 +32,22 @@ public class CandidatureFacade extends AbstractFacade<Candidature> implements Ca
         super(Candidature.class);
     }
     
+    @Override
     public void candidater(Candidature candidature) {
-        em.getTransaction().begin();
-        em.persist(candidature);
-        em.getTransaction().commit();
+        create(candidature);
     }
     
+    @Override
     public void recruter(Candidature candidature, boolean feuxVertCodir) {     
-        if (feuxVertCodir) {
-            Candidat candidat = em.find(Candidat.class, candidature.getCandidat1());
-            em.getTransaction().begin();
-            candidat.setFeuxvertcodir(feuxVertCodir);
-            em.getTransaction().commit();
-
-            Fichedeposte fichedeposte = em.find(Fichedeposte.class, candidature.getFichedeposte1());
-            em.getTransaction().begin();
-            fichedeposte.setArchivee(feuxVertCodir);
-            em.getTransaction().commit();
-        }
-        
         supprimerCandidature(candidature);
     }
     
+    @Override
     public void supprimerCandidature(Candidature candidature) {
-        Candidature c = em.find(Candidature.class, candidature);
-        em.getTransaction().begin();
-        em.remove(c);
-        em.getTransaction().commit();
+        remove(candidature);
     }
     
+    @Override
     public List<Candidature> listerCandidatures() {
         return em.createQuery("SELECT c FROM Candidature c").getResultList();
     }

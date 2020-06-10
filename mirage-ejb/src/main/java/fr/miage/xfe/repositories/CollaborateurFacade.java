@@ -31,12 +31,14 @@ public class CollaborateurFacade extends AbstractFacade<Collaborateur> implement
         super(Collaborateur.class);
     }
     
+    @Override
     public void concretiserEmbauche(Collaborateur collaborateur) {
         em.getTransaction().begin();
         em.persist(collaborateur);
         em.getTransaction().commit();
     }
     
+    @Override
     public List<Competence> listerCompCollaborateur(Collaborateur collaborateur) {
         return em.createQuery("SELECT c FROM Collaborateur c1, Competence c WHERE c1.idcollaborateur = c.candidatCollection AND c1.idcollaborateur = :id").setParameter("id", collaborateur.getIdcollaborateur()).getResultList();
     }

@@ -5,11 +5,9 @@
  */
 package fr.miage.xfe.exposition;
 
-import fr.miage.xfe.entities.Candidat;
 import fr.miage.xfe.entities.Candidature;
 import fr.miage.xfe.entities.Competence;
 import fr.miage.xfe.entities.Demandecompetence;
-import fr.miage.xfe.entities.Equipe;
 import fr.miage.xfe.entities.Fichedeposte;
 import java.util.Date;
 import java.util.List;
@@ -24,11 +22,11 @@ public interface ExpoLegereLocal {
     
     public List<Fichedeposte> listerOffres();
     
-    public void candidater(String idCandidat, String idFDPoste, Date dateCandidature, String email, String tel, String cv, String lettreMotivation);
+    public void candidater(String idCandidat, String idFDPoste, String dateCandidature, String email, String tel, String cv, String lettreMotivation);
     
     public List<Candidature> listerCandidatures();
     
-    public void recruter(String idCandidature, boolean feuxVertCodir);
+    public void recruter(String idCandidat, String idFDPoste, String feuxVertCodir);
     
     public List<Demandecompetence> listerCompACombler();
     

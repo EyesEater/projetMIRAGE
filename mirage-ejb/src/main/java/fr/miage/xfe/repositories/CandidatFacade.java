@@ -30,6 +30,7 @@ public class CandidatFacade extends AbstractFacade<Candidat> implements Candidat
         super(Candidat.class);
     }
     
+    @Override
     public List<Candidat> listerCandidatARecruter() {
         return em.createQuery("SELECT c FROM Candidat c WHERE c.FEUXVERTCODIR = TRUE").getResultList();
     }

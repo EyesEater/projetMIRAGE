@@ -29,5 +29,13 @@ public interface DemandecompetenceFacadeLocal {
     List<Demandecompetence> findRange(int[] range);
 
     int count();
+
+    public List<Demandecompetence> listerCompACombler();
+
+    public void gererDemandeComp(Demandecompetence demandeCompetence);
+
+    public void supprimerDemandeComp(Demandecompetence demandeCompetence);
+
+    public void creerDemandeComp(Demandecompetence demandecompetence);
     
 }

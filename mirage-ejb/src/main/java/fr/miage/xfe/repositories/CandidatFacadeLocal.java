@@ -29,5 +29,7 @@ public interface CandidatFacadeLocal {
     List<Candidat> findRange(int[] range);
 
     int count();
+
+    public List<Candidat> listerCandidatARecruter();
     
 }

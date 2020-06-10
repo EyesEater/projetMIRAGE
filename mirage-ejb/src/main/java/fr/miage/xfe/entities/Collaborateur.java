@@ -58,7 +58,7 @@ public class Collaborateur implements Serializable {
     @ManyToOne
     private Collaborateur manager;
     @JoinColumn(name = "EQUIPE", referencedColumnName = "IDEQUIPE")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Equipe equipe;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "manager")
     private Collection<Equipe> equipeCollection;

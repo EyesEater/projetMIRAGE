@@ -6,6 +6,7 @@
 package fr.miage.xfe.repositories;
 
 import fr.miage.xfe.entities.Collaborateur;
+import fr.miage.xfe.entities.Competence;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -29,5 +30,9 @@ public interface CollaborateurFacadeLocal {
     List<Collaborateur> findRange(int[] range);
 
     int count();
+
+    public void concretiserEmbauche(Collaborateur collaborateur);
+
+    public List<Competence> listerCompCollaborateur(Collaborateur collaborateur);
     
 }

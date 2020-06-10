@@ -7,9 +7,12 @@ package fr.miage.xfe.repositories;
 
 import fr.miage.xfe.entities.Demandecompetence;
 import java.util.List;
+import java.util.logging.Level;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 
 /**
  *
@@ -30,25 +33,24 @@ public class DemandecompetenceFacade extends AbstractFacade<Demandecompetence> i
         super(Demandecompetence.class);
     }
     
+    @Override
     public void supprimerDemandeComp(Demandecompetence demandecompetence) {
-        em.getTransaction().begin();
-        em.remove(demandecompetence);
-        em.getTransaction().commit();
+        remove(demandecompetence);
     }
     
+    @Override
     public void gererDemandeComp(Demandecompetence demandecompetence) {
-        em.getTransaction().begin();
         demandecompetence.setFeuxvertcodir(Boolean.TRUE);
-        em.getTransaction().commit();
+        edit(demandecompetence);
     }
     
+    @Override
     public void creerDemandeComp(Demandecompetence demandecompetence) {
-        em.getTransaction().begin();
-        em.persist(demandecompetence);
-        em.getTransaction().commit();
+        create(demandecompetence);
     }
     
+    @Override
     public List<Demandecompetence> listerCompACombler() {
-        return em.createQuery("SELECT d FROM DEMANDECOMPETENCE d WHERE d.feuxVertCodir = false").getResultList();
+        return em.createQuery("SELECT d FROM Demandecompetence d WHERE d.feuxvertcodir = 0").getResultList();
     }
 }

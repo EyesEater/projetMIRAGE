@@ -10,8 +10,6 @@ import fr.miage.xfe.entities.Competence;
 import fr.miage.xfe.entities.Demandecompetence;
 import fr.miage.xfe.entities.Fichedeposte;
 import fr.miage.xfe.exposition.ExpoLegereLocal;
-import java.time.Instant;
-import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.jws.Oneway;
@@ -37,9 +35,8 @@ public class WSLeger {
 
     @WebMethod(operationName = "candidater")
     @Oneway
-    public void candidater(@WebParam(name = "candidat") String idCandidat, @WebParam(name = "fDPoste") String idFDPoste, @WebParam(name = "dateCandidature") String dateCandidature, @WebParam(name = "email") String email, @WebParam(name = "tel") String tel, @WebParam(name = "cv") String cv, @WebParam(name = "lettreMotivation") String lettreMotivation) {
-        Date dateC = Date.from(Instant.parse(dateCandidature));
-        ejbRef.candidater(idCandidat, idFDPoste, dateC, email, tel, cv, lettreMotivation);
+    public void candidater(@WebParam(name = "idCandidat") String idCandidat, @WebParam(name = "idFDPoste") String idFDPoste, @WebParam(name = "dateCandidature") String dateCandidature, @WebParam(name = "email") String email, @WebParam(name = "tel") String tel, @WebParam(name = "cv") String cv, @WebParam(name = "lettreMotivation") String lettreMotivation) {
+        ejbRef.candidater(idCandidat, idFDPoste, dateCandidature, email, tel, cv, lettreMotivation);
     }
 
     @WebMethod(operationName = "listerCandidatures")
@@ -48,10 +45,8 @@ public class WSLeger {
     }
 
     @WebMethod(operationName = "recruter")
-    @Oneway
-    public void recruter(@WebParam(name = "candidature") String idCandidature, @WebParam(name = "feuxVertCodir") boolean feuxVertCodir) {
-        
-        ejbRef.recruter(idCandidature, feuxVertCodir);
+    public void recruter(@WebParam(name = "idCandidat") String idCandidat, @WebParam(name = "idFDPoste") String idFDPoste, @WebParam(name = "feuxVertCodir") String feuxVertCodir) {
+        ejbRef.recruter(idCandidat, idFDPoste, feuxVertCodir);
     }
 
     @WebMethod(operationName = "listerCompACombler")
@@ -61,12 +56,12 @@ public class WSLeger {
 
     @WebMethod(operationName = "creerDemandeComp")
     @Oneway
-    public void creerDemandeComp(@WebParam(name = "competence") String idCompetence, @WebParam(name = "equipe") String idEquipe) {
+    public void creerDemandeComp(@WebParam(name = "idCompetence") String idCompetence, @WebParam(name = "idEquipe") String idEquipe) {
         ejbRef.creerDemandeComp(idCompetence, idEquipe);
     }
 
     @WebMethod(operationName = "listerCompEquipe")
-    public List<Competence> listerCompEquipe(@WebParam(name = "equipe") String idEquipe) {
+    public List<Competence> listerCompEquipe(@WebParam(name = "idEquipe") String idEquipe) {
         return ejbRef.listerCompEquipe(idEquipe);
     }
     
