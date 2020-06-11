@@ -86,4 +86,9 @@ public class GestionRecrutement implements GestionRecrutementLocal {
     public List<Candidat> listerCandidatsARecruter() {
         return candidatFacade.listerCandidatARecruter();
     }
+
+    @Override
+    public List<Candidature> listerCandidaturesParOffre(Integer idFDPoste) {
+        return this.candidatureFacade.listerCandidatureParOffre(idFDPoste);
+    }
 }

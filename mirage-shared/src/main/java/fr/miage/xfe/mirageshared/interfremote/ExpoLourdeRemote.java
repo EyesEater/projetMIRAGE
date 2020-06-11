@@ -10,6 +10,8 @@ import fr.miage.xfe.mirageshared.utilities.CompetenceExport;
 import fr.miage.xfe.mirageshared.utilities.DemandeCompetenceExport;
 import fr.miage.xfe.mirageshared.utilities.CandidatureExport;
 import fr.miage.xfe.mirageshared.utilities.CollaborateurExport;
+import fr.miage.xfe.mirageshared.utilities.EquipeExport;
+import fr.miage.xfe.mirageshared.utilities.FicheDePosteExport;
 import java.util.List;
 import javax.ejb.Remote;
 
@@ -30,5 +32,13 @@ public interface ExpoLourdeRemote {
     
     public void supprimerCandidature(CandidatureExport candidatureExport);
     
-    public void convertirComEnFDPoste(DemandeCompetenceExport demandeCompetenceExport, String presentationEntreprise, String presentationPoste);
+    public void convertirCompEnFDPoste(DemandeCompetenceExport demandeCompetenceExport, String presentationEntreprise, String presentationPoste);
+    
+    public List<CandidatExport> listerCandidats();
+    
+    public List<EquipeExport> listerEquipes();
+    
+    public List<CollaborateurExport> listerCollaborateurs();
+    
+    public List<CandidatureExport> listerCandidaturesParOffre(FicheDePosteExport ficheDePosteExport);
 }

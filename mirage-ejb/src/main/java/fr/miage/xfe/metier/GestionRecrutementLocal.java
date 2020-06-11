@@ -32,4 +32,6 @@ public interface GestionRecrutementLocal {
     public void concretiserEmbauche(Integer idCandidat, String role);
 
     public void supprimerCandidature(Integer idCandidat, Integer idFDPoste);
+    
+    public List<Candidature> listerCandidaturesParOffre(Integer idFDPoste);
 }

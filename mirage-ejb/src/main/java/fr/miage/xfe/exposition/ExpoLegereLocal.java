@@ -9,7 +9,6 @@ import fr.miage.xfe.entities.Candidature;
 import fr.miage.xfe.entities.Competence;
 import fr.miage.xfe.entities.Demandecompetence;
 import fr.miage.xfe.entities.Fichedeposte;
-import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
 
