@@ -17,14 +17,17 @@ import fr.miage.xfe.entities.Collaborateur;
 import fr.miage.xfe.entities.Competence;
 import fr.miage.xfe.entities.Demandecompetence;
 import fr.miage.xfe.entities.DemandecompetencePK;
+import fr.miage.xfe.entities.Equipe;
 import fr.miage.xfe.entities.Fichedeposte;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import fr.miage.xfe.metier.GestionCompetencesLocal;
+import fr.miage.xfe.metier.GestionPersonnelLocal;
 import fr.miage.xfe.metier.GestionRecrutementLocal;
 import java.util.ArrayList;
 import fr.miage.xfe.mirageshared.interfremote.ExpoLourdeRemote;
+import fr.miage.xfe.mirageshared.utilities.EquipeExport;
 
 /**
  *
@@ -32,6 +35,9 @@ import fr.miage.xfe.mirageshared.interfremote.ExpoLourdeRemote;
  */
 @Stateless
 public class ExpoLourde implements ExpoLourdeRemote {
+
+    @EJB
+    private GestionPersonnelLocal gestionPersonnel;
 
     @EJB
     private GestionRecrutementLocal gestionRecrutement;
@@ -82,8 +88,45 @@ public class ExpoLourde implements ExpoLourdeRemote {
     }
 
     @Override
-    public void convertirComEnFDPoste(DemandeCompetenceExport demandeCompetenceExport, String presentationEntreprise, String presentationPoste) {
+    public void convertirCompEnFDPoste(DemandeCompetenceExport demandeCompetenceExport, String presentationEntreprise, String presentationPoste) {
         Demandecompetence demande = new Demandecompetence(new DemandecompetencePK(demandeCompetenceExport.getCompetence().getId(), demandeCompetenceExport.getEquipe().getId()), demandeCompetenceExport.isFeuxVertCodir());
         this.gestionCompetences.convertirCompEnFDPoste(demande, presentationEntreprise, presentationPoste);
+    }
+
+    @Override
+    public List<CandidatExport> listerCandidats() {
+        List<CandidatExport> candidats = new ArrayList<>();
+        for(Candidat c : this.gestionPersonnel.listerCandidats()) {
+            candidats.add(new CandidatExport(c.getIdcandidat(), c.getNomcandidat(), c.getPrenomcandidat(), c.getFeuxvertcodir()));
+        }
+        return candidats;
+    }
+
+    @Override
+    public List<EquipeExport> listerEquipes() {
+        List<EquipeExport> equipes = new ArrayList<>();
+        for(Equipe e : this.gestionPersonnel.listerEquipes()) {
+            equipes.add(new EquipeExport(e.getIdequipe(), e.getNomequipe()));
+        }
+        return equipes;
+    }
+
+    @Override
+    public List<CollaborateurExport> listerCollaborateurs() {
+        List<CollaborateurExport> collaborateurs = new ArrayList<>();
+        for(Collaborateur c : this.gestionPersonnel.listerCollaborateurs()) {
+            collaborateurs.add(new CollaborateurExport(c.getIdcollaborateur(), new CandidatExport(c.getCandidat().getIdcandidat(), c.getCandidat().getNomcandidat(), c.getCandidat().getPrenomcandidat(), c.getCandidat().getFeuxvertcodir()), c.getRole()));
+        }
+        return collaborateurs;
+    }
+
+    @Override
+    public List<CandidatureExport> listerCandidaturesParOffre(FicheDePosteExport ficheDePosteExport) {
+        List<CandidatureExport> candidatures = new ArrayList<>();
+        for(Candidature c : this.gestionRecrutement.listerCandidaturesParOffre(ficheDePosteExport.getId())) {
+            CandidatExport candidat = new CandidatExport(c.getCandidat1().getIdcandidat(), c.getCandidat1().getNomcandidat(), c.getCandidat1().getPrenomcandidat(), c.getCandidat1().getFeuxvertcodir());
+            candidatures.add(new CandidatureExport(candidat, ficheDePosteExport, c.getDatecandidature(), c.getTelephone(), c.getEmail(), c.getCv(), c.getLettremotivation()));
+        }
+        return candidatures;
     }
 }

@@ -5,9 +5,7 @@
  */
 package fr.miage.xfe.repositories;
 
-import fr.miage.xfe.entities.Candidat;
 import fr.miage.xfe.entities.Candidature;
-import fr.miage.xfe.entities.Fichedeposte;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -50,5 +48,10 @@ public class CandidatureFacade extends AbstractFacade<Candidature> implements Ca
     @Override
     public List<Candidature> listerCandidatures() {
         return em.createQuery("SELECT c FROM Candidature c").getResultList();
+    }
+
+    @Override
+    public List<Candidature> listerCandidatureParOffre(Integer idFDPoste) {
+        return em.createQuery("SELECT c FROM Candidature c WHERE c.fichedeposte1.idfpd = :id").setParameter("id", idFDPoste).getResultList();
     }
 }

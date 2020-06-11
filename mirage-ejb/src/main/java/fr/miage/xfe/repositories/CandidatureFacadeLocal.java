@@ -37,5 +37,7 @@ public interface CandidatureFacadeLocal {
     public void recruter(Candidature candidature, boolean feuxVertCodir);
 
     public void supprimerCandidature(Candidature candidature);
+
+    public List<Candidature> listerCandidatureParOffre(Integer idFDPoste);
     
 }
