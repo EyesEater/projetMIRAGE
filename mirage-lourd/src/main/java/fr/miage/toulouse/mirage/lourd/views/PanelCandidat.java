@@ -5,6 +5,7 @@
  */
 package fr.miage.toulouse.mirage.lourd.views;
 
+import fr.miage.toulouse.mirage.lourd.controler.MirageControler;
 import fr.miage.toulouse.mirage.lourd.others.TableFunctions;
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -19,11 +20,14 @@ import javax.swing.JTable;
  */
 public class PanelCandidat extends javax.swing.JPanel {
 
+    private MirageControler ctrl;
+    
     /**
      * Creates new form PanelCandidat
      */
-    public PanelCandidat(String idCandidat) {
+    public PanelCandidat(String idCandidat,MirageControler ctrl) {
         initComponents();
+        this.ctrl = ctrl;
         fillCandidat(idCandidat);
     }
 

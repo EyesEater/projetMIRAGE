@@ -5,6 +5,7 @@
  */
 package fr.miage.toulouse.mirage.lourd.views;
 
+import fr.miage.toulouse.mirage.lourd.controler.MirageControler;
 import java.awt.Component;
 import java.awt.GridLayout;
 import java.util.HashMap;
@@ -18,11 +19,14 @@ import javax.swing.JTable;
  */
 public class PanelFDP extends javax.swing.JPanel {
 
+    private MirageControler ctrl;
+    
     /**
      * Creates new form PanelFDP
      */
-    public PanelFDP(String idFDP) {
+    public PanelFDP(String idFDP,MirageControler ctrl) {
         initComponents();
+        this.ctrl = ctrl;
         fillFDP(idFDP);
     }
 
@@ -33,7 +37,7 @@ public class PanelFDP extends javax.swing.JPanel {
         String[] candidats = {"1","2","3"};
         this.PanelCandidats.setLayout(new GridLayout(candidats.length, 2));
         for (String candidat : candidats) {
-            this.PanelCandidats.add(new PanelCandidat(candidat));
+            this.PanelCandidats.add(new PanelCandidat(candidat,this.ctrl));
         }
         
         

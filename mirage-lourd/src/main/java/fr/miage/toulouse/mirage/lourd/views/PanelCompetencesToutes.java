@@ -5,6 +5,7 @@
  */
 package fr.miage.toulouse.mirage.lourd.views;
 
+import fr.miage.toulouse.mirage.lourd.controler.MirageControler;
 import fr.miage.toulouse.mirage.lourd.others.TableFunctions;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -19,11 +20,14 @@ import javax.swing.JTable;
  */
 public class PanelCompetencesToutes extends javax.swing.JPanel {
 
+    private MirageControler ctrl;
+    
     /**
      * Creates new form PanelCompetencesToutes
      */
-    public PanelCompetencesToutes() {
+    public PanelCompetencesToutes(MirageControler ctrl) {
         initComponents();
+        this.ctrl = ctrl;
         fillTable();
     }
 

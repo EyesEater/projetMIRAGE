@@ -5,6 +5,7 @@
  */
 package fr.miage.toulouse.mirage.lourd.views;
 
+import fr.miage.toulouse.mirage.lourd.controler.MirageControler;
 import java.awt.Checkbox;
 import java.awt.CheckboxGroup;
 import java.awt.Color;
@@ -21,11 +22,14 @@ import javax.swing.ScrollPaneLayout;
  */
 public class PanelDemandeConvertor extends javax.swing.JPanel {
 
+    private MirageControler ctrl;
+    
     /**
      * Creates new form PanelFDPCreator
      */
-    public PanelDemandeConvertor(String idDemande) {
+    public PanelDemandeConvertor(String idDemande,MirageControler ctrl) {
         initComponents();
+        this.ctrl = ctrl;
         fillCompetences(idDemande);
     }
 

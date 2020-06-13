@@ -5,9 +5,8 @@
  */
 package fr.miage.toulouse.mirage.lourd.views;
 
+import fr.miage.toulouse.mirage.lourd.controler.MirageControler;
 import java.awt.Component;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 /**
  *
@@ -16,18 +15,20 @@ import javax.swing.JPanel;
 public class PanelCandidatures extends javax.swing.JPanel {
 
     private Component dynamicPanel;
+    private MirageControler ctrl;
     /**
      * Creates new form PanelFDPCandidatures
      */
-    public PanelCandidatures() {
+    public PanelCandidatures(MirageControler ctrl) {
         initComponents();
         this.dynamicPanel = this.PanelView;
+        this.ctrl = ctrl;
         fillPanelView();
     }
 
     private void fillPanelView(){
         this.remove(this.dynamicPanel);
-        this.dynamicPanel = this.add(new PanelListeCandidatures());
+        this.dynamicPanel = this.add(new PanelListeCandidatures(this.ctrl));
         this.revalidate();
         this.repaint();
     }

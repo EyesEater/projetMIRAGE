@@ -5,12 +5,14 @@
  */
 package fr.miage.toulouse.mirage.lourd.views;
 
+import fr.miage.toulouse.mirage.lourd.controler.MirageControler;
+import fr.miage.xfe.mirageshared.interfremote.ExpoLourdeRemote;
 import java.awt.Component;
-import java.awt.Image;
-import java.awt.Toolkit;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
 /**
  *
@@ -19,12 +21,17 @@ import javax.swing.JLabel;
 public class MainFrame extends javax.swing.JFrame {
 
     private Component dynamicPanel;
+    private MirageControler ctrl;
     /**
      * Creates new form MainFrame
      */
-    public MainFrame() {
+    public MainFrame() throws NamingException {
         initComponents();
         this.dynamicPanel = this.PanelWork;
+        
+        Context ctx = new InitialContext();
+        ExpoLourdeRemote remote = (ExpoLourdeRemote) ctx.lookup("fr.miage.xfe.mirageshared.interfremote.ExpoLourdeRemote");
+        this.ctrl = new MirageControler((remote));
     }
 
     /**
@@ -140,21 +147,21 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void ButtonCompetencesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCompetencesActionPerformed
         this.remove(this.dynamicPanel);
-        this.dynamicPanel = this.add(new PanelCompetences());
+        this.dynamicPanel = this.add(new PanelCompetences(this.ctrl));
         this.revalidate();
         this.repaint();
     }//GEN-LAST:event_ButtonCompetencesActionPerformed
 
     private void ButtonFDPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonFDPActionPerformed
         this.remove(this.dynamicPanel);
-        this.dynamicPanel = this.add(new PanelCreationFDP());
+        this.dynamicPanel = this.add(new PanelCreationFDP(this.ctrl));
         this.revalidate();
         this.repaint();
     }//GEN-LAST:event_ButtonFDPActionPerformed
 
     private void ButtonCandidaturesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCandidaturesActionPerformed
         this.remove(this.dynamicPanel);
-        this.dynamicPanel = this.add(new PanelCandidatures());
+        this.dynamicPanel = this.add(new PanelCandidatures(this.ctrl));
         this.revalidate();
         this.repaint();
     }//GEN-LAST:event_ButtonCandidaturesActionPerformed
@@ -162,7 +169,7 @@ public class MainFrame extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) throws NamingException {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -185,11 +192,15 @@ public class MainFrame extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainFrame().setVisible(true);
+                try {
+                    new MainFrame().setVisible(true);
+                } catch (NamingException ex) {
+                    Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

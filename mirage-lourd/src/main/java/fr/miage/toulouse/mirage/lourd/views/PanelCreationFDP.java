@@ -5,6 +5,7 @@
  */
 package fr.miage.toulouse.mirage.lourd.views;
 
+import fr.miage.toulouse.mirage.lourd.controler.MirageControler;
 import java.awt.Component;
 import javax.swing.JFrame;
 
@@ -15,23 +16,24 @@ import javax.swing.JFrame;
 public class PanelCreationFDP extends javax.swing.JPanel {
 
     private Component dynamicPanel;
+    private MirageControler ctrl;
     
     /**
      * Creates new form PanelCreationFDP
      */
-    public PanelCreationFDP() {
+    public PanelCreationFDP(MirageControler ctrl) {
         initComponents();
         this.dynamicPanel = this.PanelView;
+        this.ctrl = ctrl;
         fillPanelView();
     }
     
     
     private void fillPanelView(){
         this.remove(this.dynamicPanel);
-        this.dynamicPanel = this.add(new PanelListeDemandesCompetences());
+        this.dynamicPanel = this.add(new PanelListeDemandesCompetences(this.ctrl));
         this.revalidate();
         this.repaint();
-        System.out.println("HELLO");
     }
 
     /**
@@ -116,7 +118,7 @@ public class PanelCreationFDP extends javax.swing.JPanel {
 
     private void ButtonFDPCreatorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonFDPCreatorActionPerformed
         JFrame framePDFCreator = new JFrame();
-        framePDFCreator.add(new PanelFDPCreator());
+        framePDFCreator.add(new PanelFDPCreator(this.ctrl));
         framePDFCreator.setVisible(true);
         framePDFCreator.pack();
     }//GEN-LAST:event_ButtonFDPCreatorActionPerformed

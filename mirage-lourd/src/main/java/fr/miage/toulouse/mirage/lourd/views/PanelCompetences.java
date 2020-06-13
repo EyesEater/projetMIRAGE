@@ -5,6 +5,7 @@
  */
 package fr.miage.toulouse.mirage.lourd.views;
 
+import fr.miage.toulouse.mirage.lourd.controler.MirageControler;
 import java.awt.Component;
 import java.awt.Dimension;
 import javax.swing.JPanel;
@@ -16,13 +17,15 @@ import javax.swing.JPanel;
 public class PanelCompetences extends javax.swing.JPanel {
 
     private Component dynamicPanel;
+    private MirageControler ctrl;
     
     /**
      * Creates new form PanelCompetences
      */
-    public PanelCompetences() {
+    public PanelCompetences(MirageControler ctrl) {
         initComponents();
         this.dynamicPanel = PanelDisplay;
+        this.ctrl = ctrl;
         initTab();
     }
 
@@ -122,28 +125,28 @@ public class PanelCompetences extends javax.swing.JPanel {
 
     private void ButtonEquipeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonEquipeActionPerformed
         this.remove(this.dynamicPanel);
-        this.dynamicPanel = this.add(new PanelCompetencesEquipes());
+        this.dynamicPanel = this.add(new PanelCompetencesEquipes(this.ctrl));
         this.revalidate();
         this.repaint();
     }//GEN-LAST:event_ButtonEquipeActionPerformed
 
     private void ButtonToutesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonToutesActionPerformed
         this.remove(this.dynamicPanel);
-        this.dynamicPanel = this.add(new PanelCompetencesToutes());
+        this.dynamicPanel = this.add(new PanelCompetencesToutes(this.ctrl));
         this.revalidate();
         this.repaint();
     }//GEN-LAST:event_ButtonToutesActionPerformed
 
     private void ButtonCollabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCollabActionPerformed
         this.remove(this.dynamicPanel);
-        this.dynamicPanel = this.add(new PanelCompetencesCollabs());
+        this.dynamicPanel = this.add(new PanelCompetencesCollabs(this.ctrl));
         this.revalidate();
         this.repaint();
     }//GEN-LAST:event_ButtonCollabActionPerformed
 
     private void initTab(){
         this.remove(this.dynamicPanel);
-        this.dynamicPanel = this.add(new PanelCompetencesToutes());
+        this.dynamicPanel = this.add(new PanelCompetencesToutes(this.ctrl));
         this.revalidate();
         this.repaint();
     }

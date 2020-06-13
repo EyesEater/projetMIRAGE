@@ -5,6 +5,7 @@
  */
 package fr.miage.toulouse.mirage.lourd.views;
 
+import fr.miage.toulouse.mirage.lourd.controler.MirageControler;
 import fr.miage.toulouse.mirage.lourd.others.TableFunctions;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -20,11 +21,14 @@ import javax.swing.JTable;
  */
 public class PanelCompetencesCollabs extends javax.swing.JPanel {
 
+    private MirageControler ctrl;
+    
     /**
      * Creates new form PanelCompetencesToutes
      */
-    public PanelCompetencesCollabs() {
+    public PanelCompetencesCollabs(MirageControler ctrl) {
         initComponents();
+        this.ctrl = ctrl;
         fillTable();
     }
 
@@ -42,9 +46,7 @@ public class PanelCompetencesCollabs extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void fillTable(){
-        Object[][] donnees = {
-            {"1","Fyon","Edmond","<html><ul><li>A</li><li>B</li></ul></html>"},
-            {"2","Marlex","Bob","<html><ul><li>C</li></ul></html>"}};
+        Object[][] donnees = this.ctrl.getCompetencesCollaborateurs();
         String[] entetes = {"ID", "Nom","Prénom","Compétences"};
         JTable tableau = new JTable(donnees, entetes);
         TableFunctions.formatTable(tableau);

@@ -115,11 +115,6 @@
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\calme\Documents\NetBeansProjects\projetMIRAGE\mirage-lourd\Image\logo.PNG"/>
-            </Property>
-          </Properties>
         </Component>
       </SubComponents>
     </Container>

@@ -5,6 +5,7 @@
  */
 package fr.miage.toulouse.mirage.lourd.views;
 
+import fr.miage.toulouse.mirage.lourd.controler.MirageControler;
 import fr.miage.toulouse.mirage.lourd.others.TableFunctions;
 import java.awt.BorderLayout;
 import java.awt.event.MouseEvent;
@@ -20,11 +21,14 @@ import javax.swing.event.MouseInputListener;
  */
 public class PanelListeDemandesCompetences extends javax.swing.JPanel {
 
+    private MirageControler ctrl;
+    
     /**
      * Creates new form PanelListeDemandesCompetences
      */
-    public PanelListeDemandesCompetences() {
+    public PanelListeDemandesCompetences(MirageControler ctrl) {
         initComponents();
+        this.ctrl = ctrl;
         fillTable();
     }
     
@@ -84,7 +88,7 @@ public class PanelListeDemandesCompetences extends javax.swing.JPanel {
     
     private void openConversionDemande(String ID){
         JFrame frameDemandeConvertor = new JFrame("Demande " + ID);
-        frameDemandeConvertor.add(new PanelDemandeConvertor(ID));
+        frameDemandeConvertor.add(new PanelDemandeConvertor(ID,this.ctrl));
         frameDemandeConvertor.setVisible(true);
         frameDemandeConvertor.pack();
     }

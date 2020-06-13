@@ -5,6 +5,7 @@
  */
 package fr.miage.toulouse.mirage.lourd.views;
 
+import fr.miage.toulouse.mirage.lourd.controler.MirageControler;
 import fr.miage.toulouse.mirage.lourd.others.TableFunctions;
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -28,11 +29,14 @@ import javax.swing.table.TableCellRenderer;
  */
 public class PanelListeCandidatures extends javax.swing.JPanel {
 
+    private MirageControler ctrl;
+    
     /**
      * Creates new form PanelListeCandidatures
      */
-    public PanelListeCandidatures() {
+    public PanelListeCandidatures(MirageControler ctrl) {
         initComponents();
+        this.ctrl = ctrl;
         fillTable();
     }
     
@@ -93,7 +97,7 @@ public class PanelListeCandidatures extends javax.swing.JPanel {
     
     private void openFDP(String id){
         JFrame frameFDP = new JFrame("FDP " + id);
-        frameFDP.add(new PanelFDP(id));
+        frameFDP.add(new PanelFDP(id,this.ctrl));
         frameFDP.setVisible(true);
         frameFDP.pack();
     }
