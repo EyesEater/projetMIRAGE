@@ -45,8 +45,8 @@ public class WSLeger {
     }
 
     @WebMethod(operationName = "recruter")
-    public void recruter(@WebParam(name = "idCandidat") String idCandidat, @WebParam(name = "idFDPoste") String idFDPoste, @WebParam(name = "feuxVertCodir") String feuxVertCodir) {
-        ejbRef.recruter(idCandidat, idFDPoste, feuxVertCodir);
+    public void recruter(@WebParam(name = "idCandidat") String idCandidat, @WebParam(name = "feuxVertCodir") String feuxVertCodir) {
+        ejbRef.recruter(idCandidat, feuxVertCodir);
     }
 
     @WebMethod(operationName = "listerCompACombler")

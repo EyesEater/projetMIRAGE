@@ -55,8 +55,8 @@ public class ExpoLegere implements ExpoLegereLocal {
     }
 
     @Override
-    public void recruter(String idCandidat, String idFDPoste, String feuxVertCodir) {
-        this.gestionRecrutement.recruter(Integer.parseInt(idCandidat), Integer.parseInt(idFDPoste), feuxVertCodir.equals("1"));
+    public void recruter(String idCandidat, String feuxVertCodir) {
+        this.gestionRecrutement.recruter(Integer.parseInt(idCandidat), feuxVertCodir.equals("1"));
     }
 
     @Override

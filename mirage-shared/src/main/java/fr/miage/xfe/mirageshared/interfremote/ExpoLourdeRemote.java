@@ -24,7 +24,7 @@ public interface ExpoLourdeRemote {
     
     public List<CompetenceExport> listerCompCollaborateur(CollaborateurExport collaborateurExport);
     
-    public void concretiserEmbauche(CandidatExport candidatExport, String role);
+    public void concretiserEmbauche(CandidatureExport candidatureExport, String role);
     
     public List<CandidatureExport> listerCandidatures();
     

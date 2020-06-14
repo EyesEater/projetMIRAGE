@@ -25,7 +25,7 @@ public interface ExpoLegereLocal {
     
     public List<Candidature> listerCandidatures();
     
-    public void recruter(String idCandidat, String idFDPoste, String feuxVertCodir);
+    public void recruter(String idCandidat, String feuxVertCodir);
     
     public List<Demandecompetence> listerCompACombler();
     

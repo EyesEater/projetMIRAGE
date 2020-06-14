@@ -28,9 +28,9 @@ public interface GestionRecrutementLocal {
 
     public void candidater(Integer idCandidat, Integer idFDPoste, Date dateCandidature, String email, String tel, String cv, String lettreMotivation);
 
-    public void recruter(Integer idCandidat, Integer idFDPoste, boolean feuxVertCodir);
+    public void recruter(Integer idCandidat, boolean feuxVertCodir);
 
-    public void concretiserEmbauche(Integer idCandidat, String role);
+    public void concretiserEmbauche(Candidature candidature, String role);
 
     public void supprimerCandidature(Integer idCandidat, Integer idFDPoste);
     
@@ -39,4 +39,6 @@ public interface GestionRecrutementLocal {
     public List<Fichedeposte> listerFDPostes();
 
     public void ajouterFicheDePoste(Fichedeposte fichedeposte);
+
+    public Candidature findCandidature(Integer id, Integer id0);
 }

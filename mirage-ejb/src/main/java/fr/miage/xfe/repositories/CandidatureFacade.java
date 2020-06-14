@@ -37,11 +37,6 @@ public class CandidatureFacade extends AbstractFacade<Candidature> implements Ca
     
     @Override
     public void recruter(Candidature candidature, boolean feuxVertCodir) {     
-        supprimerCandidature(candidature);
-    }
-    
-    @Override
-    public void supprimerCandidature(Candidature candidature) {
         remove(candidature);
     }
     

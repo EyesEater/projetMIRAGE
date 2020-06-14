@@ -55,8 +55,9 @@ public class ExpoLourde implements ExpoLourdeRemote {
     }
 
     @Override
-    public void concretiserEmbauche(CandidatExport candidatExport, String role) {
-        this.gestionRecrutement.concretiserEmbauche(candidatExport.getId(), role);
+    public void concretiserEmbauche(CandidatureExport candidatureExport, String role) {
+        Candidature candidature = this.gestionRecrutement.findCandidature(candidatureExport.getCandidat().getId(), candidatureExport.getFicheDePoste().getId());
+        this.gestionRecrutement.concretiserEmbauche(candidature, role);
     }
 
     @Override

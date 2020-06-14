@@ -56,31 +56,28 @@ public class GestionRecrutement implements GestionRecrutementLocal {
     }
 
     @Override
-    public void recruter(Integer idCandidat, Integer idFDPoste, boolean feuxVertCodir) {
-        CandidaturePK candidaturePK = new CandidaturePK(idCandidat, idFDPoste);
-        Candidature candidature = candidatureFacade.find(candidaturePK);
-        if (feuxVertCodir) {
-            Candidat candidat = candidatFacade.find(candidature.getCandidat1().getIdcandidat());
-            candidat.setFeuxvertcodir(feuxVertCodir);
-            candidatFacade.edit(candidat);
-
-            Fichedeposte fichedeposte = fichedeposteFacade.find(candidature.getFichedeposte1().getIdfpd());
-            fichedeposte.setArchivee(feuxVertCodir);
-            fichedeposteFacade.edit(fichedeposte);
-        }
-        candidatureFacade.recruter(candidature, feuxVertCodir);
+    public void recruter(Integer idCandidat, boolean feuxVertCodir) {
+        Candidat candidat = candidatFacade.find(idCandidat);
+        candidat.setFeuxvertcodir(feuxVertCodir);
+        candidatFacade.edit(candidat);
     }
 
     @Override
-    public void concretiserEmbauche(Integer idCandidat, String role) {
-        Candidat candidat = candidatFacade.find(idCandidat);
+    public void concretiserEmbauche(Candidature candidature, String role) {        
+        Candidat candidat = candidatFacade.find(candidature.getCandidat1().getIdcandidat());
         collaborateurFacade.concretiserEmbauche(new Collaborateur(candidat, role));
+        
+        Fichedeposte fichedeposte = fichedeposteFacade.find(candidature.getFichedeposte1().getIdfpd());
+        fichedeposte.setArchivee(true);
+        fichedeposteFacade.edit(fichedeposte);
+        
+        candidatureFacade.remove(candidature);
     }
 
     @Override
     public void supprimerCandidature(Integer idCandidat, Integer idFDposte) {
         Candidature candidature = candidatureFacade.find(new CandidaturePK(idCandidat, idFDposte));
-        candidatureFacade.supprimerCandidature(candidature);
+        candidatureFacade.remove(candidature);
     }
 
     @Override
@@ -101,5 +98,11 @@ public class GestionRecrutement implements GestionRecrutementLocal {
     @Override
     public void ajouterFicheDePoste(Fichedeposte fichedeposte) {
         this.fichedeposteFacade.creerFDPoste(fichedeposte);
+    }
+
+    @Override
+    public Candidature findCandidature(Integer idCandidat, Integer idFDPoste) {
+        CandidaturePK candidaturePK = new CandidaturePK(idCandidat, idFDPoste);
+        return this.candidatureFacade.find(candidaturePK);
     }
 }
