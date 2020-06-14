@@ -40,5 +40,5 @@ public interface GestionRecrutementLocal {
 
     public void ajouterFicheDePoste(Fichedeposte fichedeposte);
 
-    public Candidature findCandidature(Integer id, Integer id0);
+    public Candidature findCandidature(Integer idCandidat, Integer idFDPoste);
 }

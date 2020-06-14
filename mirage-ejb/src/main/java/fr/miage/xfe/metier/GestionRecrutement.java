@@ -102,7 +102,6 @@ public class GestionRecrutement implements GestionRecrutementLocal {
 
     @Override
     public Candidature findCandidature(Integer idCandidat, Integer idFDPoste) {
-        CandidaturePK candidaturePK = new CandidaturePK(idCandidat, idFDPoste);
-        return this.candidatureFacade.find(candidaturePK);
+        return this.candidatureFacade.find(new CandidaturePK(idCandidat, idFDPoste));
     }
 }
