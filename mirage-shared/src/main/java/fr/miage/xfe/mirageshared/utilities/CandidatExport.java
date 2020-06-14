@@ -17,7 +17,7 @@ public class CandidatExport implements Serializable {
     private String nom;
     private String prenom;
     private boolean feuxVertCodir;
-    private CompetenceExport compentence;
+    private CompetenceExport competence;
 
     public CandidatExport(Integer id, String nom, String prenom, boolean feuxVertCodir, CompetenceExport competenceExport) {
         this.id = id;
@@ -58,11 +58,11 @@ public class CandidatExport implements Serializable {
         this.prenom = prenom;
     }
 
-    public CompetenceExport getCompentence() {
-        return compentence;
+    public CompetenceExport getCompetence() {
+        return competence;
     }
 
-    public void setCompentence(CompetenceExport compentence) {
-        this.compentence = compentence;
+    public void setCompetence(CompetenceExport competence) {
+        this.competence = competence;
     }
 }
