@@ -33,9 +33,7 @@ public class CollaborateurFacade extends AbstractFacade<Collaborateur> implement
     
     @Override
     public void concretiserEmbauche(Collaborateur collaborateur) {
-        em.getTransaction().begin();
-        em.persist(collaborateur);
-        em.getTransaction().commit();
+        this.create(collaborateur);
     }
     
     @Override
