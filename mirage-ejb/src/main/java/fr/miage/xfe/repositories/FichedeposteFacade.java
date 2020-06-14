@@ -37,8 +37,6 @@ public class FichedeposteFacade extends AbstractFacade<Fichedeposte> implements 
     
     @Override
     public void creerFDPoste(Fichedeposte fichedeposte) {
-        em.getTransaction().begin();
-        em.persist(fichedeposte);
-        em.getTransaction().commit();
+        this.create(fichedeposte);
     }
 }
