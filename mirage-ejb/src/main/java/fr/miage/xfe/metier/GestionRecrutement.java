@@ -99,8 +99,7 @@ public class GestionRecrutement implements GestionRecrutementLocal {
     }
 
     @Override
-    public void ajouterFicheDePoste(Competence competence, String presentationEntreprise, String presentationPoste) {
-        Fichedeposte fichedeposte = new Fichedeposte(presentationEntreprise, presentationPoste, competence);
+    public void ajouterFicheDePoste(Fichedeposte fichedeposte) {
         this.fichedeposteFacade.creerFDPoste(fichedeposte);
     }
 }

@@ -16,7 +16,6 @@ import fr.miage.xfe.entities.Candidature;
 import fr.miage.xfe.entities.Collaborateur;
 import fr.miage.xfe.entities.Competence;
 import fr.miage.xfe.entities.Demandecompetence;
-import fr.miage.xfe.entities.DemandecompetencePK;
 import fr.miage.xfe.entities.Equipe;
 import fr.miage.xfe.entities.Fichedeposte;
 import java.util.List;
@@ -65,7 +64,8 @@ public class ExpoLourde implements ExpoLourdeRemote {
         List<CandidatureExport> candidatures = new ArrayList<>();
         for(Candidature c : this.gestionRecrutement.listerCandidatures()) {
             Candidat candTemp = c.getCandidat1();
-            CandidatExport cand = new CandidatExport(candTemp.getIdcandidat(), candTemp.getNomcandidat(), candTemp.getPrenomcandidat(), candTemp.getFeuxvertcodir());
+            CompetenceExport competence = new CompetenceExport(c.getCandidat1().getCompetences().getIdcompetence(), c.getCandidat1().getCompetences().getNomcompetence());
+            CandidatExport cand = new CandidatExport(candTemp.getIdcandidat(), candTemp.getNomcandidat(), candTemp.getPrenomcandidat(), candTemp.getFeuxvertcodir(), competence);
             Fichedeposte f = c.getFichedeposte1();
             FicheDePosteExport fiche = new FicheDePosteExport(f.getIdfpd(), f.getPresentationentreprisefdp(), f.getPresentationpostefdp(), f.getArchivee(), new CompetenceExport(f.getCompetencesfdp().getIdcompetence(), f.getCompetencesfdp().getNomcompetence()));
             candidatures.add(new CandidatureExport(cand, fiche, c.getDatecandidature(), c.getTelephone(), c.getEmail(), c.getCv(), c.getLettremotivation()));
@@ -77,7 +77,8 @@ public class ExpoLourde implements ExpoLourdeRemote {
     public List<CandidatExport> listerCandidatsARecruter() {
         List<CandidatExport> candidats = new ArrayList<>();
         for(Candidat c : this.gestionRecrutement.listerCandidatsARecruter()) {
-            candidats.add(new CandidatExport(c.getIdcandidat(), c.getNomcandidat(), c.getPrenomcandidat(), c.getFeuxvertcodir()));
+            CompetenceExport competence = new CompetenceExport(c.getCompetences().getIdcompetence(), c.getCompetences().getNomcompetence());
+            candidats.add(new CandidatExport(c.getIdcandidat(), c.getNomcandidat(), c.getPrenomcandidat(), c.getFeuxvertcodir(), competence));
         }
         return candidats;
     }
@@ -89,7 +90,9 @@ public class ExpoLourde implements ExpoLourdeRemote {
 
     @Override
     public void convertirCompEnFDPoste(DemandeCompetenceExport demandeCompetenceExport, String presentationEntreprise, String presentationPoste) {
-        Demandecompetence demande = new Demandecompetence(new DemandecompetencePK(demandeCompetenceExport.getCompetence().getId(), demandeCompetenceExport.getEquipe().getId()), demandeCompetenceExport.isFeuxVertCodir());
+        Competence competence = new Competence(demandeCompetenceExport.getCompetence().getId(), demandeCompetenceExport.getCompetence().getNomCompetence());
+        Equipe equipe = new Equipe(demandeCompetenceExport.getEquipe().getId(), demandeCompetenceExport.getEquipe().getNom());
+        Demandecompetence demande = new Demandecompetence(demandeCompetenceExport.isFeuxVertCodir(), competence, equipe);
         this.gestionCompetences.convertirCompEnFDPoste(demande, presentationEntreprise, presentationPoste);
     }
 
@@ -97,7 +100,8 @@ public class ExpoLourde implements ExpoLourdeRemote {
     public List<CandidatExport> listerCandidats() {
         List<CandidatExport> candidats = new ArrayList<>();
         for(Candidat c : this.gestionPersonnel.listerCandidats()) {
-            candidats.add(new CandidatExport(c.getIdcandidat(), c.getNomcandidat(), c.getPrenomcandidat(), c.getFeuxvertcodir()));
+            CompetenceExport competence = new CompetenceExport(c.getCompetences().getIdcompetence(), c.getCompetences().getNomcompetence());
+            candidats.add(new CandidatExport(c.getIdcandidat(), c.getNomcandidat(), c.getPrenomcandidat(), c.getFeuxvertcodir(), competence));
         }
         return candidats;
     }
@@ -115,7 +119,8 @@ public class ExpoLourde implements ExpoLourdeRemote {
     public List<CollaborateurExport> listerCollaborateurs() {
         List<CollaborateurExport> collaborateurs = new ArrayList<>();
         for(Collaborateur c : this.gestionPersonnel.listerCollaborateurs()) {
-            collaborateurs.add(new CollaborateurExport(c.getIdcollaborateur(), new CandidatExport(c.getCandidat().getIdcandidat(), c.getCandidat().getNomcandidat(), c.getCandidat().getPrenomcandidat(), c.getCandidat().getFeuxvertcodir()), c.getRole()));
+            CompetenceExport competence = new CompetenceExport(c.getCandidat().getCompetences().getIdcompetence(), c.getCandidat().getCompetences().getNomcompetence());
+            collaborateurs.add(new CollaborateurExport(c.getIdcollaborateur(), new CandidatExport(c.getCandidat().getIdcandidat(), c.getCandidat().getNomcandidat(), c.getCandidat().getPrenomcandidat(), c.getCandidat().getFeuxvertcodir(), competence), c.getRole()));
         }
         return collaborateurs;
     }
@@ -124,7 +129,8 @@ public class ExpoLourde implements ExpoLourdeRemote {
     public List<CandidatureExport> listerCandidaturesParOffre(FicheDePosteExport ficheDePosteExport) {
         List<CandidatureExport> candidatures = new ArrayList<>();
         for(Candidature c : this.gestionRecrutement.listerCandidaturesParOffre(ficheDePosteExport.getId())) {
-            CandidatExport candidat = new CandidatExport(c.getCandidat1().getIdcandidat(), c.getCandidat1().getNomcandidat(), c.getCandidat1().getPrenomcandidat(), c.getCandidat1().getFeuxvertcodir());
+            CompetenceExport competence = new CompetenceExport(c.getCandidat1().getCompetences().getIdcompetence(), c.getCandidat1().getCompetences().getNomcompetence());
+            CandidatExport candidat = new CandidatExport(c.getCandidat1().getIdcandidat(), c.getCandidat1().getNomcandidat(), c.getCandidat1().getPrenomcandidat(), c.getCandidat1().getFeuxvertcodir(), competence);
             candidatures.add(new CandidatureExport(candidat, ficheDePosteExport, c.getDatecandidature(), c.getTelephone(), c.getEmail(), c.getCv(), c.getLettremotivation()));
         }
         return candidatures;
@@ -162,7 +168,8 @@ public class ExpoLourde implements ExpoLourdeRemote {
     @Override
     public void ajouterFDPoste(CompetenceExport competenceExport, String presentationEntreprise, String presentationPoste) {
         Competence competence = new Competence(competenceExport.getId(), competenceExport.getNomCompetence());
-        this.gestionRecrutement.ajouterFicheDePoste(competence, presentationEntreprise, presentationPoste);
+        Fichedeposte fichedeposte = new Fichedeposte(presentationEntreprise, presentationPoste, competence);
+        this.gestionRecrutement.ajouterFicheDePoste(fichedeposte);
     }
 
     @Override

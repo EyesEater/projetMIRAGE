@@ -38,5 +38,5 @@ public interface GestionRecrutementLocal {
 
     public List<Fichedeposte> listerFDPostes();
 
-    public void ajouterFicheDePoste(Competence competence, String presentationEntreprise, String presentationPoste);
+    public void ajouterFicheDePoste(Fichedeposte fichedeposte);
 }

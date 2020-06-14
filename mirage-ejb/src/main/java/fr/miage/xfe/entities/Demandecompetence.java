@@ -68,6 +68,13 @@ public class Demandecompetence implements Serializable {
         return demandecompetencePK;
     }
 
+    public Demandecompetence(Boolean feuxvertcodir, Competence competence1, Equipe equipe1) {
+        this.demandecompetencePK = new DemandecompetencePK(competence1.getIdcompetence(), equipe1.getIdequipe());
+        this.feuxvertcodir = feuxvertcodir;
+        this.competence1 = competence1;
+        this.equipe1 = equipe1;
+    }
+
     public void setDemandecompetencePK(DemandecompetencePK demandecompetencePK) {
         this.demandecompetencePK = demandecompetencePK;
     }

@@ -77,10 +77,11 @@ public class Fichedeposte implements Serializable {
         this.presentationpostefdp = presentationpostefdp;
     }
     
-    public Fichedeposte(String presentationEntreprise, String PresentationPoste, Competence competence) {
+    public Fichedeposte(String presentationEntreprise, String presentationPoste, Competence competence) {
         this.presentationentreprisefdp = presentationEntreprise;
-        this.presentationpostefdp = presentationpostefdp;
+        this.presentationpostefdp = presentationPoste;
         this.competencesfdp = competence;
+        this.archivee = false;
     }
 
     public Fichedeposte(Integer idfpd, String presentationentreprisefdp, String presentationpostefdp, Boolean archivee, Competence competencesfdp) {
