@@ -7,6 +7,7 @@ package fr.miage.xfe.metier;
 
 import fr.miage.xfe.entities.Candidat;
 import fr.miage.xfe.entities.Candidature;
+import fr.miage.xfe.entities.Competence;
 import fr.miage.xfe.entities.Fichedeposte;
 import java.util.Date;
 import java.util.List;
@@ -34,4 +35,8 @@ public interface GestionRecrutementLocal {
     public void supprimerCandidature(Integer idCandidat, Integer idFDPoste);
     
     public List<Candidature> listerCandidaturesParOffre(Integer idFDPoste);
+
+    public List<Fichedeposte> listerFDPostes();
+
+    public void ajouterFicheDePoste(Competence competence, String presentationEntreprise, String presentationPoste);
 }

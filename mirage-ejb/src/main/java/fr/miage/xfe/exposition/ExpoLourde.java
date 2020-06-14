@@ -129,4 +129,49 @@ public class ExpoLourde implements ExpoLourdeRemote {
         }
         return candidatures;
     }
+
+    @Override
+    public List<CompetenceExport> listerCompetences() {
+        List<CompetenceExport> competences = new ArrayList<>();
+        for(Competence c : this.gestionCompetences.listerCompetences()) {
+            competences.add(new CompetenceExport(c.getIdcompetence(), c.getNomcompetence()));
+        }
+        return competences;
+    }
+
+    @Override
+    public List<CompetenceExport> listerCompEquipe(EquipeExport equipeExport) {
+        List<CompetenceExport> competences = new ArrayList<>();
+        for(Competence c : this.gestionCompetences.listerCompEquipe(equipeExport.getId())) {
+            competences.add(new CompetenceExport(c.getIdcompetence(), c.getNomcompetence()));
+        }
+        return competences;
+    }
+
+    @Override
+    public List<DemandeCompetenceExport> listerDemandesCompetences() {
+        List<DemandeCompetenceExport> demandeCompetences = new ArrayList<>();
+        for(Demandecompetence demande : this.gestionCompetences.listerDemandesCompetences()) {
+            CompetenceExport competence = new CompetenceExport(demande.getCompetence1().getIdcompetence(), demande.getCompetence1().getNomcompetence());
+            EquipeExport equipe = new EquipeExport(demande.getEquipe1().getIdequipe(), demande.getEquipe1().getNomequipe());
+            demandeCompetences.add(new DemandeCompetenceExport(competence, equipe, demande.getFeuxvertcodir()));
+        }
+        return demandeCompetences;
+    }
+
+    @Override
+    public void ajouterFDPoste(CompetenceExport competenceExport, String presentationEntreprise, String presentationPoste) {
+        Competence competence = new Competence(competenceExport.getId(), competenceExport.getNomCompetence());
+        this.gestionRecrutement.ajouterFicheDePoste(competence, presentationEntreprise, presentationPoste);
+    }
+
+    @Override
+    public List<FicheDePosteExport> listerFDPoste() {
+        List<FicheDePosteExport> ficheDePostes = new ArrayList<>();
+        for(Fichedeposte f : this.gestionRecrutement.listerFDPostes()) {
+            CompetenceExport competenceExport = new CompetenceExport(f.getCompetencesfdp().getIdcompetence(), f.getCompetencesfdp().getNomcompetence());
+            ficheDePostes.add(new FicheDePosteExport(f.getIdfpd(), f.getPresentationentreprisefdp(), f.getPresentationpostefdp(), f.getArchivee(), competenceExport));
+        }
+        return ficheDePostes;
+    }
 }

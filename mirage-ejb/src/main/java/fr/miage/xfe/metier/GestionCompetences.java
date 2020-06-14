@@ -11,6 +11,7 @@ import fr.miage.xfe.entities.Demandecompetence;
 import fr.miage.xfe.entities.Equipe;
 import fr.miage.xfe.entities.Fichedeposte;
 import fr.miage.xfe.repositories.CollaborateurFacadeLocal;
+import fr.miage.xfe.repositories.CompetenceFacadeLocal;
 import fr.miage.xfe.repositories.DemandecompetenceFacadeLocal;
 import fr.miage.xfe.repositories.EquipeFacadeLocal;
 import fr.miage.xfe.repositories.FichedeposteFacadeLocal;
@@ -24,6 +25,9 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class GestionCompetences implements GestionCompetencesLocal {
+
+    @EJB
+    private CompetenceFacadeLocal competenceFacade;
 
     @EJB
     private FichedeposteFacadeLocal fichedeposteFacade;
@@ -70,5 +74,15 @@ public class GestionCompetences implements GestionCompetencesLocal {
     public void creerDemandeComp(Integer idCompetence, Integer idEquipe) {
         Demandecompetence demandecompetence = new Demandecompetence(idCompetence, idEquipe);
         demandecompetenceFacade.creerDemandeComp(demandecompetence);
+    }
+
+    @Override
+    public List<Competence> listerCompetences() {
+        return this.competenceFacade.findAll();
+    }
+
+    @Override
+    public List<Demandecompetence> listerDemandesCompetences() {
+        return this.demandecompetenceFacade.findAll();
     }
 }

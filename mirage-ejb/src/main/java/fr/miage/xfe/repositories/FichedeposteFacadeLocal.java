@@ -33,5 +33,4 @@ public interface FichedeposteFacadeLocal {
     public List<Fichedeposte> listerOffres();
 
     public void creerFDPoste(Fichedeposte fichedeposte);
-    
 }

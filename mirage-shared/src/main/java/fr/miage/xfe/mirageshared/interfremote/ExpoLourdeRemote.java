@@ -41,4 +41,14 @@ public interface ExpoLourdeRemote {
     public List<CollaborateurExport> listerCollaborateurs();
     
     public List<CandidatureExport> listerCandidaturesParOffre(FicheDePosteExport ficheDePosteExport);
+    
+    public List<CompetenceExport> listerCompetences();
+    
+    public List<CompetenceExport> listerCompEquipe(EquipeExport equipeExport);
+    
+    public List<DemandeCompetenceExport> listerDemandesCompetences();
+    
+    public void ajouterFDPoste(CompetenceExport competenceExport, String presentationEntreprise, String presentationPoste);
+    
+    public List<FicheDePosteExport> listerFDPoste();
 }

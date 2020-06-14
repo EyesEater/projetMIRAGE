@@ -29,4 +29,8 @@ public interface GestionCompetencesLocal {
     public void convertirCompEnFDPoste(Demandecompetence demandeCompetence, String presentationEntreprise, String presentationPoste);
 
     public void creerDemandeComp(Integer idCompetence, Integer idEquipe);
+    
+    public List<Competence> listerCompetences();
+
+    public List<Demandecompetence> listerDemandesCompetences();
 }
