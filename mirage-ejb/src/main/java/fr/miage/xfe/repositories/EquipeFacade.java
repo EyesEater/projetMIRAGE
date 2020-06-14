@@ -39,6 +39,6 @@ public class EquipeFacade extends AbstractFacade<Equipe> implements EquipeFacade
     
     @Override
     public List<Competence> listerCompEquipe(Equipe equipe) {
-        return em.createQuery("SELECT c FROM Equipe e, Competence c WHERE e.competences.idcompetence = c.idcompetence").getResultList();
+        return em.createQuery("SELECT c FROM Equipe e, Competence c WHERE e.competences.idcompetence = c.idcompetence AND e.idequipe = :id").setParameter("id", equipe.getIdequipe()).getResultList();
     }
 }

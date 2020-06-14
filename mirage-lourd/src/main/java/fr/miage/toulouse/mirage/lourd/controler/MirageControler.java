@@ -57,7 +57,7 @@ public class MirageControler {
                 listeComp+="<li>"+competenceExport.getNomCompetence()+"</li>";
             }
             listeComp+="</ul></html>";
-            donnees[count][3] = listeComp;
+            donnees[count][2] = listeComp;
             count++;
         }
         return donnees;
