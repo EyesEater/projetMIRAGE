@@ -51,7 +51,7 @@ public class PanelCandidat extends javax.swing.JPanel {
                 String response = JOptionPane.showInputDialog(null,"Entrez le rôle", "Role", JOptionPane.QUESTION_MESSAGE);
                 if(response!=""){
                     ctrl.concretiser(candidature, response);
-                    ((JFrame)getParent().getParent().getParent().getParent()).dispose();
+                    ((JFrame)getParent().getParent().getParent().getParent().getParent().getParent()).dispose();
                 }else
                     javax.swing.JOptionPane.showMessageDialog(null,"Erreur: aucun rôle n'a été saisi!");
                     

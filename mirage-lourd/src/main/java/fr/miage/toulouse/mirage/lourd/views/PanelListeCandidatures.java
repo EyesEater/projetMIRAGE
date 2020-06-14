@@ -107,7 +107,6 @@ public class PanelListeCandidatures extends javax.swing.JPanel {
             @Override
             public void windowClosing(WindowEvent e) {
                 removeAll();
-                System.out.println("LOL");
                 fillTable();
                 revalidate();
                 repaint();
