@@ -33,13 +33,10 @@ public class PanelListeDemandesCompetences extends javax.swing.JPanel {
     }
     
     private void fillTable(){
-        Object[][] donnees = {
-            {"1","A"},
-            {"2","B"}};
+        Object[][] donnees = this.ctrl.getAllDemandesCompetences();
         
-        String[] entetes = {"ID", "Compétence"};
+        String[] entetes = {"ID Compétence","Compétence","ID Equipe","Equipe"};
         JTable tableau = new JTable(donnees, entetes);
-        
         
         tableau.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         
@@ -51,8 +48,9 @@ public class PanelListeDemandesCompetences extends javax.swing.JPanel {
             public void mouseClicked(MouseEvent e) {
                 int index = tableau.getSelectedRow();
                 if(tableau.getModel().getRowCount()>=index){
-                    String ID = (String)tableau.getModel().getValueAt(index, 0);
-                    openConversionDemande(ID);
+                    int IDcomp = (int)tableau.getModel().getValueAt(index, 0);
+                    int IDequipe = (int)tableau.getModel().getValueAt(index, 2);
+                    openConversionDemande(IDcomp,IDequipe);
                 }
             }
             @Override
@@ -86,9 +84,9 @@ public class PanelListeDemandesCompetences extends javax.swing.JPanel {
         this.add(new JScrollPane(tableau),BorderLayout.CENTER);         
     }
     
-    private void openConversionDemande(String ID){
-        JFrame frameDemandeConvertor = new JFrame("Demande " + ID);
-        frameDemandeConvertor.add(new PanelDemandeConvertor(ID,this.ctrl));
+    private void openConversionDemande(int IDcomp,int IDequipe){
+        JFrame frameDemandeConvertor = new JFrame();
+        frameDemandeConvertor.add(new PanelDemandeConvertor(IDcomp,IDequipe,this.ctrl));
         frameDemandeConvertor.setVisible(true);
         frameDemandeConvertor.pack();
     }

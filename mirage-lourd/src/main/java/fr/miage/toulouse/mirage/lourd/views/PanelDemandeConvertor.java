@@ -6,6 +6,8 @@
 package fr.miage.toulouse.mirage.lourd.views;
 
 import fr.miage.toulouse.mirage.lourd.controler.MirageControler;
+import fr.miage.xfe.mirageshared.utilities.CompetenceExport;
+import fr.miage.xfe.mirageshared.utilities.DemandeCompetenceExport;
 import java.awt.Checkbox;
 import java.awt.CheckboxGroup;
 import java.awt.Color;
@@ -23,14 +25,21 @@ import javax.swing.ScrollPaneLayout;
 public class PanelDemandeConvertor extends javax.swing.JPanel {
 
     private MirageControler ctrl;
+    private DemandeCompetenceExport demandeCompetence;
     
     /**
      * Creates new form PanelFDPCreator
      */
-    public PanelDemandeConvertor(String idDemande,MirageControler ctrl) {
+    public PanelDemandeConvertor(int idCompetence,int idEquipe,MirageControler ctrl) {
         initComponents();
         this.ctrl = ctrl;
-        fillCompetences(idDemande);
+        if(this.ctrl.getDemandeCompetence(idCompetence, idEquipe)!=null){
+            this.demandeCompetence = this.ctrl.getDemandeCompetence(idCompetence, idEquipe);
+            fillCompetences();
+        }else{
+            this.setVisible(false);
+            javax.swing.JOptionPane.showMessageDialog(this,"Erreur Demande introuvable");
+        }
     }
 
     /**
@@ -141,11 +150,18 @@ public class PanelDemandeConvertor extends javax.swing.JPanel {
     }//GEN-LAST:event_ButtonAnnulerActionPerformed
 
     private void ButtonValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonValiderActionPerformed
-        // TODO add your handling code here:
+        String presentationPoste = this.TxtPoste.getText();
+        String presentationEntreprise = this.TxtEntreprise.getText();
+        if(!"".equals(presentationEntreprise) && !"".equals(presentationPoste)){
+            this.ctrl.convertirDemandeCompetence(this.demandeCompetence, presentationPoste, presentationEntreprise);
+            ((JFrame)getParent().getParent().getParent().getParent()).dispose();          
+        }else{
+            javax.swing.JOptionPane.showMessageDialog(this,"Erreur: Formulaire incomplet");            
+        }
     }//GEN-LAST:event_ButtonValiderActionPerformed
 
-    private void fillCompetences(String id){
-        String donnee = "A";
+    private void fillCompetences(){
+        String donnee = this.demandeCompetence.getCompetence().getNomCompetence();
         this.LabelCompetence.setText("Compétence: " + donnee);
     }
 

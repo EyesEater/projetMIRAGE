@@ -9,6 +9,7 @@ import fr.miage.xfe.mirageshared.interfremote.ExpoLourdeRemote;
 import fr.miage.xfe.mirageshared.utilities.CandidatExport;
 import fr.miage.xfe.mirageshared.utilities.CollaborateurExport;
 import fr.miage.xfe.mirageshared.utilities.CompetenceExport;
+import fr.miage.xfe.mirageshared.utilities.DemandeCompetenceExport;
 import fr.miage.xfe.mirageshared.utilities.EquipeExport;
 import java.util.List;
 
@@ -43,7 +44,14 @@ public class MirageControler {
     }
     
     public Object[][] getAllCompetences(){
-        return new Object[0][0];
+        Object[][] donnees = new Object[this.remote.listerCompetences().size()][2];
+        int count = 0;
+        for (CompetenceExport competence : this.remote.listerCompetences()) {
+            donnees[count][0] = competence.getId();
+            donnees[count][1] = competence.getNomCompetence();
+            count++;
+        }
+        return donnees;
     }
     
     public Object[][] getCompetencesEquipes(){
@@ -63,5 +71,37 @@ public class MirageControler {
         return donnees;
     }
     
+    public Object[][] getAllDemandesCompetences(){
+        Object[][] donnees = new Object[this.remote.listerDemandesCompetences().size()][4];
+        int count = 0;
+        for (DemandeCompetenceExport demandeCompetence : this.remote.listerDemandesCompetences()) {
+            if(demandeCompetence.isFeuxVertCodir()){
+                CompetenceExport competence = demandeCompetence.getCompetence();
+                donnees[count][0] = competence.getId();
+                donnees[count][1] = competence.getNomCompetence();
+                EquipeExport equipe = demandeCompetence.getEquipe();
+                donnees[count][2] = equipe.getId();
+                donnees[count][3] = equipe.getNom();
+                count++;                
+            }else{
+                Object[][] temp = new Object[donnees.length-1][4];
+                System.arraycopy(donnees, 0, temp, 0, donnees.length-1);
+                donnees = temp;
+            }
+        }
+        return donnees;
+    }
+    
+    public DemandeCompetenceExport getDemandeCompetence(int idComp,int idEquipe){
+        for (DemandeCompetenceExport demandeCompetence : this.remote.listerDemandesCompetences()) {
+            if(demandeCompetence.getCompetence().getId()==idComp && demandeCompetence.getEquipe().getId()==idEquipe)
+                return demandeCompetence;
+        }
+        return null;
+    }  
+    
+    public void convertirDemandeCompetence(DemandeCompetenceExport demande, String presentationPoste, String presentationEntreprise){
+        this.remote.convertirCompEnFDPoste(demande, presentationPoste, presentationEntreprise);
+    }
     
 }
