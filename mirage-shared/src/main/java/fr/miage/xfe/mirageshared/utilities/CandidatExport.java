@@ -24,6 +24,7 @@ public class CandidatExport implements Serializable {
         this.nom = nom;
         this.prenom = prenom;
         this.feuxVertCodir = feuxVertCodir;
+        this.competence = competenceExport;
     }
 
     public boolean isFeuxVertCodir() {
