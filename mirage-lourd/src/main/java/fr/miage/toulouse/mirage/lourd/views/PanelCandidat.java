@@ -7,10 +7,14 @@ package fr.miage.toulouse.mirage.lourd.views;
 
 import fr.miage.toulouse.mirage.lourd.controler.MirageControler;
 import fr.miage.toulouse.mirage.lourd.others.TableFunctions;
+import fr.miage.xfe.mirageshared.utilities.CandidatureExport;
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Formattable;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 
@@ -21,30 +25,46 @@ import javax.swing.JTable;
 public class PanelCandidat extends javax.swing.JPanel {
 
     private MirageControler ctrl;
+    private CandidatureExport candidature;
     
     /**
      * Creates new form PanelCandidat
      */
-    public PanelCandidat(String idCandidat,MirageControler ctrl) {
+    public PanelCandidat(CandidatureExport candidature,MirageControler ctrl) {
         initComponents();
         this.ctrl = ctrl;
-        fillCandidat(idCandidat);
+        this.candidature = candidature;
+        fillCandidat();
     }
 
-    private void fillCandidat(String idCandidat){
-        Boolean aConcretiser = true;
-        if(Math.random()<0.5)
-            aConcretiser = false;
-        Object[][] candidat = {{idCandidat,"Edmond","Fyon","<html><ul><li>A</li><li>B</li></ul></html>",aConcretiser}};
+    private void fillCandidat(){
+        Object[][] candidat = this.ctrl.getCandidatInformation(candidature);
         String[] entetes = {"ID","Prénom","Nom","Compétences"};
         JTable tabCandidat = new JTable(candidat, entetes);
         TableFunctions.formatTable(tabCandidat);
         tabCandidat.setEnabled(false);
         JButton buttonConcretiser = new JButton("Concrétiser");
-        if(!(boolean)candidat[0][candidat[0].length-1]){
-            buttonConcretiser.setEnabled(false);
-        }
+        buttonConcretiser.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String response = JOptionPane.showInputDialog(null,"Entrez le rôle", "Role", JOptionPane.QUESTION_MESSAGE);
+                if(response!="")
+                    ctrl.concretiser(candidature.getCandidat(), response);
+                else
+                    javax.swing.JOptionPane.showMessageDialog(null,"Erreur: aucun rôle n'a été saisi!");
+                    
+            }
+        });
+        buttonConcretiser.setEnabled((boolean)candidat[0][candidat[0].length-1]);
         JButton buttonSupprimer = new JButton("Supprimer");
+        buttonSupprimer.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ctrl.removeCandidature(candidature);
+                javax.swing.JOptionPane.showMessageDialog(null,"Candidat supprimé");
+                setVisible(false);
+            }
+        });
         JPanel panTab = new JPanel(new BorderLayout());
         panTab.add(tabCandidat.getTableHeader(),BorderLayout.NORTH);
         panTab.add(tabCandidat,BorderLayout.CENTER);

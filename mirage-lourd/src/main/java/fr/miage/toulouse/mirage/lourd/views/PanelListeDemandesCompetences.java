@@ -48,8 +48,8 @@ public class PanelListeDemandesCompetences extends javax.swing.JPanel {
             public void mouseClicked(MouseEvent e) {
                 int index = tableau.getSelectedRow();
                 if(tableau.getModel().getRowCount()>=index){
-                    int IDcomp = (int)tableau.getModel().getValueAt(index, 0);
-                    int IDequipe = (int)tableau.getModel().getValueAt(index, 2);
+                    int IDcomp = (Integer)tableau.getModel().getValueAt(index, 0);
+                    int IDequipe = (Integer)tableau.getModel().getValueAt(index, 2);
                     openConversionDemande(IDcomp,IDequipe);
                 }
             }

@@ -41,11 +41,9 @@ public class PanelListeCandidatures extends javax.swing.JPanel {
     }
     
     private void fillTable(){
-        Object[][] donnees = {
-            {"1","LOLOZEKOOJZAD","2"},
-            {"2","LAICNCNENCOEZNCONOECNOEZOLOZEKOOJZAD","0"}};
+        Object[][] donnees = this.ctrl.getAllFDP();
         
-        String[] entetes = {"ID FDP", "Présentation du poste","Nb Candidats"};
+        String[] entetes = {"ID FDP", "Présentation du poste", "Présentation de l'équipe","Nb Candidats"};
         JTable tableau = new JTable(donnees, entetes);
         
         
@@ -59,7 +57,7 @@ public class PanelListeCandidatures extends javax.swing.JPanel {
             public void mouseClicked(MouseEvent e) {
                 int index = tableau.getSelectedRow();
                 if(tableau.getModel().getRowCount()>=index){
-                    String ID = (String)tableau.getModel().getValueAt(index, 0);
+                    int ID = (int)tableau.getModel().getValueAt(index, 0);
                     openFDP(ID);
                 }
             }
@@ -95,7 +93,7 @@ public class PanelListeCandidatures extends javax.swing.JPanel {
         
     }
     
-    private void openFDP(String id){
+    private void openFDP(int id){
         JFrame frameFDP = new JFrame("FDP " + id);
         frameFDP.add(new PanelFDP(id,this.ctrl));
         frameFDP.setVisible(true);

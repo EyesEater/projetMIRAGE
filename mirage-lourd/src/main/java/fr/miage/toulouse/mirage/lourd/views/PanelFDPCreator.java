@@ -6,6 +6,7 @@
 package fr.miage.toulouse.mirage.lourd.views;
 
 import fr.miage.toulouse.mirage.lourd.controler.MirageControler;
+import fr.miage.xfe.mirageshared.utilities.CompetenceExport;
 import java.awt.Checkbox;
 import java.awt.CheckboxGroup;
 import java.awt.Color;
@@ -23,6 +24,7 @@ import javax.swing.ScrollPaneLayout;
 public class PanelFDPCreator extends javax.swing.JPanel {
 
     private MirageControler ctrl;
+    private CheckboxGroup groupeCompetences;
     
     /**
      * Creates new form PanelFDPCreator
@@ -157,25 +159,33 @@ public class PanelFDPCreator extends javax.swing.JPanel {
     }//GEN-LAST:event_ButtonAnnulerActionPerformed
 
     private void ButtonValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonValiderActionPerformed
-        // TODO add your handling code here:
+        String presentationPoste = this.TxtPoste.getText();
+        String presentationEntreprise = this.TxtEntreprise.getText();
+        Integer idCompetence = Integer.parseInt(this.groupeCompetences.getSelectedCheckbox().getName()); 
+        if(!"".equals(presentationEntreprise) && !"".equals(presentationPoste) && idCompetence!=null){
+            CompetenceExport cmp = this.ctrl.getCompetence(idCompetence);
+            this.ctrl.addFDP(cmp, presentationEntreprise, presentationPoste);
+            ((JFrame)getParent().getParent().getParent().getParent()).dispose();          
+        }else{
+            javax.swing.JOptionPane.showMessageDialog(this,"Erreur: Formulaire incomplet");            
+        }
     }//GEN-LAST:event_ButtonValiderActionPerformed
 
     private void fillCompetences(){
-        String[][] donnees = {
-            {"1","A"},
-            {"2","B"},
-            {"3","C"},
-            {"4","D"},
-            {"5","E"},
-            {"6","F"}};
+        Object[][] donnees = this.ctrl.getAllCompetences();
         int nbColumns = donnees.length/5;
         this.PanelCompetences.setLayout(new GridLayout(5, nbColumns));
         CheckboxGroup groupCompetences = new CheckboxGroup();
-        for (String[] donnee : donnees) {
-            Checkbox c = new Checkbox(donnee[1]);
+        for (Object[] donnee : donnees) {
+            Checkbox c = new Checkbox((String)donnee[1]);
+            System.out.println(((Integer)donnee[0]).toString());
+            c.setName(((Integer)donnee[0]).toString());
+            
             c.setCheckboxGroup(groupCompetences);
+            c.setState(true);
             this.PanelCompetences.add(c);
         }
+        this.groupeCompetences = groupCompetences;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

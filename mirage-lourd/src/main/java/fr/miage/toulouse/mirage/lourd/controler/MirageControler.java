@@ -7,10 +7,12 @@ package fr.miage.toulouse.mirage.lourd.controler;
 
 import fr.miage.xfe.mirageshared.interfremote.ExpoLourdeRemote;
 import fr.miage.xfe.mirageshared.utilities.CandidatExport;
+import fr.miage.xfe.mirageshared.utilities.CandidatureExport;
 import fr.miage.xfe.mirageshared.utilities.CollaborateurExport;
 import fr.miage.xfe.mirageshared.utilities.CompetenceExport;
 import fr.miage.xfe.mirageshared.utilities.DemandeCompetenceExport;
 import fr.miage.xfe.mirageshared.utilities.EquipeExport;
+import fr.miage.xfe.mirageshared.utilities.FicheDePosteExport;
 import java.util.List;
 
 /**
@@ -101,7 +103,72 @@ public class MirageControler {
     }  
     
     public void convertirDemandeCompetence(DemandeCompetenceExport demande, String presentationPoste, String presentationEntreprise){
-        this.remote.convertirCompEnFDPoste(demande, presentationPoste, presentationEntreprise);
+        this.remote.convertirCompEnFDPoste(demande, presentationEntreprise, presentationPoste);
+    }
+    
+    public Object[][] getAllFDP(){
+        Object[][] donnees = new Object[this.remote.listerFDPoste().size()][4];
+        int count = 0;
+        for (FicheDePosteExport fdp : this.remote.listerFDPoste()) {
+            if(!fdp.isArchivee()){
+                donnees[count][0] = fdp.getId();
+                donnees[count][1] = fdp.getPresentationPoste();
+                donnees[count][2] = fdp.getPresentationEntreprise();
+                donnees[count][3] = this.remote.listerCandidaturesParOffre(fdp).size();
+                count++;                
+            }else{
+                Object[][] temp = new Object[donnees.length-1][4];
+                System.arraycopy(donnees, 0, temp, 0, donnees.length-1);
+                donnees = temp;
+            }
+        }
+        return donnees;
+    }
+    
+    public FicheDePosteExport getFDP(int id){
+        for (FicheDePosteExport fdp : this.remote.listerFDPoste()) {
+            if(fdp.getId()==id)
+                return fdp;
+        }
+        return null;
+    }
+    
+    public List<CandidatureExport> getCandidatsByFDP(FicheDePosteExport fdp){
+        return this.remote.listerCandidaturesParOffre(fdp);
+    }
+    
+    public Object[][] getCandidatInformation(CandidatureExport candidature){
+        Object[][] donnees = new Object[1][5];
+        CandidatExport candidat = candidature.getCandidat();
+        donnees[0][0] = candidat.getId();
+        donnees[0][1] = candidat.getPrenom();
+        donnees[0][2] = candidat.getNom();
+        String listeComp = "<html><ul>";
+        listeComp+="<li>"+candidat.getCompetence().getNomCompetence()+"</li>";
+        listeComp+="</ul></html>";
+        donnees[0][3] = listeComp;
+        donnees[0][4] = candidat.isFeuxVertCodir();
+        return donnees;
+    }
+    
+    public CompetenceExport getCompetence(int id){
+        for (CompetenceExport cmp : this.remote.listerCompetences()) {
+            if(cmp.getId()==id)
+                return cmp;
+        }
+        return null;
+    }
+    
+    public void addFDP(CompetenceExport cmp, String presentationEntreprise, String presentationPoste){
+        this.remote.ajouterFDPoste(cmp, presentationEntreprise, presentationPoste);
+    }
+    
+    public void concretiser(CandidatExport candidat, String role){
+        this.remote.concretiserEmbauche(candidat, role);
+    }
+    
+    public void removeCandidature(CandidatureExport candidature){
+        this.remote.supprimerCandidature(candidature);
     }
     
 }

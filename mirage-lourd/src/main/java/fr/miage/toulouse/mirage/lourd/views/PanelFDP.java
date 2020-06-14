@@ -6,9 +6,13 @@
 package fr.miage.toulouse.mirage.lourd.views;
 
 import fr.miage.toulouse.mirage.lourd.controler.MirageControler;
+import fr.miage.xfe.mirageshared.utilities.CandidatExport;
+import fr.miage.xfe.mirageshared.utilities.CandidatureExport;
+import fr.miage.xfe.mirageshared.utilities.FicheDePosteExport;
 import java.awt.Component;
 import java.awt.GridLayout;
 import java.util.HashMap;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTable;
@@ -20,24 +24,31 @@ import javax.swing.JTable;
 public class PanelFDP extends javax.swing.JPanel {
 
     private MirageControler ctrl;
+    private FicheDePosteExport fdp;
     
     /**
      * Creates new form PanelFDP
      */
-    public PanelFDP(String idFDP,MirageControler ctrl) {
+    public PanelFDP(int idFDP,MirageControler ctrl) {
         initComponents();
         this.ctrl = ctrl;
-        fillFDP(idFDP);
+        if(this.ctrl.getFDP(idFDP)!=null){
+            this.fdp = this.ctrl.getFDP(idFDP);
+            fillFDP();
+        }else{
+            this.setVisible(false);
+            javax.swing.JOptionPane.showMessageDialog(this,"Erreur Fiche de poste introuvable");
+        }
     }
 
-    private void fillFDP(String idFDP){
-        this.TxtPoste.setText("OI?IOC?EO?Z");
+    private void fillFDP(){
+        this.TxtPoste.setText(this.fdp.getPresentationPoste());
         this.TxtPoste.setEditable(false);
         
-        String[] candidats = {"1","2","3"};
-        this.PanelCandidats.setLayout(new GridLayout(candidats.length, 2));
-        for (String candidat : candidats) {
-            this.PanelCandidats.add(new PanelCandidat(candidat,this.ctrl));
+        List<CandidatureExport> candidatures = this.ctrl.getCandidatsByFDP(this.fdp);
+        this.PanelCandidats.setLayout(new GridLayout(candidatures.size(), 2));
+        for (CandidatureExport candidature : candidatures) {
+            this.PanelCandidats.add(new PanelCandidat(candidature,this.ctrl));
         }
         
         
