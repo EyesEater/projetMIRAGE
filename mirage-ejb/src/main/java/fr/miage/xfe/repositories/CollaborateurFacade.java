@@ -40,6 +40,6 @@ public class CollaborateurFacade extends AbstractFacade<Collaborateur> implement
     
     @Override
     public List<Competence> listerCompCollaborateur(Collaborateur collaborateur) {
-        return em.createQuery("SELECT c FROM Collaborateur c1, Competence c WHERE c1.idcollaborateur IN (c.candidatCollection) AND c1.idcollaborateur = :id").setParameter("id", collaborateur.getIdcollaborateur()).getResultList();
+        return em.createQuery("SELECT c FROM Collaborateur c1, Competence c WHERE c1.idcollaborateur IN (c.candidatCollection.collaborateurCollection.idcollaborateur) AND c1.idcollaborateur = :id").setParameter("id", collaborateur.getIdcollaborateur()).getResultList();
     }
 }
