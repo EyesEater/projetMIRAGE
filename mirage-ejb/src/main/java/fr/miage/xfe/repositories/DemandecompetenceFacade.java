@@ -51,6 +51,6 @@ public class DemandecompetenceFacade extends AbstractFacade<Demandecompetence> i
     
     @Override
     public List<Demandecompetence> listerCompACombler() {
-        return em.createQuery("SELECT d FROM Demandecompetence d WHERE d.feuxvertcodir = 0").getResultList();
+        return em.createQuery("SELECT d FROM Demandecompetence d WHERE d.feuxvertcodir = false").getResultList();
     }
 }

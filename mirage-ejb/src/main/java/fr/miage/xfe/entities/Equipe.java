@@ -106,6 +106,7 @@ public class Equipe implements Serializable {
         this.collaborateurCollection = collaborateurCollection;
     }
 
+    @XmlTransient
     public Collaborateur getManager() {
         return manager;
     }

@@ -24,6 +24,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.eclipse.persistence.oxm.annotations.XmlInverseReference;
 
 /**
  *
@@ -120,7 +121,8 @@ public class Collaborateur implements Serializable {
     public void setManager(Collaborateur manager) {
         this.manager = manager;
     }
-
+    
+    @XmlTransient
     public Equipe getEquipe() {
         return equipe;
     }
