@@ -9,6 +9,7 @@ import fr.miage.xfe.mirageshared.interfremote.ExpoLourdeRemote;
 import fr.miage.xfe.mirageshared.utilities.CandidatExport;
 import fr.miage.xfe.mirageshared.utilities.CollaborateurExport;
 import fr.miage.xfe.mirageshared.utilities.CompetenceExport;
+import fr.miage.xfe.mirageshared.utilities.EquipeExport;
 import java.util.List;
 
 /**
@@ -32,6 +33,27 @@ public class MirageControler {
             donnees[count][2] = candidat.getPrenom();
             String listeComp = "<html><ul>";
             for (CompetenceExport competenceExport : this.remote.listerCompCollaborateur(collaborateur)) {
+                listeComp+="<li>"+competenceExport.getNomCompetence()+"</li>";
+            }
+            listeComp+="</ul></html>";
+            donnees[count][3] = listeComp;
+            count++;
+        }
+        return donnees;
+    }
+    
+    public Object[][] getAllCompetences(){
+        return new Object[0][0];
+    }
+    
+    public Object[][] getCompetencesEquipes(){
+        Object[][] donnees = new Object[this.remote.listerEquipes().size()][3];
+        int count = 0;
+        for (EquipeExport equipe : this.remote.listerEquipes()) {
+            donnees[count][0] = equipe.getId();
+            donnees[count][1] = equipe.getNom();
+            String listeComp = "<html><ul>";
+            for (CompetenceExport competenceExport : this.remote.listerCompEquipe(equipe)) {
                 listeComp+="<li>"+competenceExport.getNomCompetence()+"</li>";
             }
             listeComp+="</ul></html>";

@@ -46,9 +46,7 @@ public class PanelCompetencesEquipes extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void fillTable(){
-        Object[][] donnees = {
-            {"1","TEAM1","<html><ul><li>A</li><li>B</li></ul></html>"},
-            {"2","TEAM2","<html><ul><li>C</li></ul></html>"}};
+        Object[][] donnees = this.ctrl.getCompetencesEquipes();
         String[] entetes = {"ID", "Nom","Compétences"};
         JTable tableau = new JTable(donnees, entetes);
         TableFunctions.formatTable(tableau);
