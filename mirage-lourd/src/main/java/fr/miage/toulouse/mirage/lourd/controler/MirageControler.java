@@ -163,8 +163,8 @@ public class MirageControler {
         this.remote.ajouterFDPoste(cmp, presentationEntreprise, presentationPoste);
     }
     
-    public void concretiser(CandidatExport candidat, String role){
-        this.remote.concretiserEmbauche(candidat, role);
+    public void concretiser(CandidatureExport candidature, String role){
+        this.remote.concretiserEmbauche(candidature, role);
     }
     
     public void removeCandidature(CandidatureExport candidature){

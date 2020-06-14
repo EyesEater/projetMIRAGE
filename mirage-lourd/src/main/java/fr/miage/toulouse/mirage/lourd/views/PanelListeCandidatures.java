@@ -11,6 +11,9 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.beans.PropertyChangeListener;
 import javax.swing.Action;
 import javax.swing.JButton;
@@ -98,6 +101,21 @@ public class PanelListeCandidatures extends javax.swing.JPanel {
         frameFDP.add(new PanelFDP(id,this.ctrl));
         frameFDP.setVisible(true);
         frameFDP.pack();
+        frameFDP.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        frameFDP.addWindowListener(new WindowAdapter() {
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                removeAll();
+                System.out.println("LOL");
+                fillTable();
+                revalidate();
+                repaint();
+                frameFDP.dispose();
+            }
+        });
+
+
     }
 
     /**
